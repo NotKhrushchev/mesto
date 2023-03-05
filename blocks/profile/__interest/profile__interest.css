@@ -1,0 +1,16 @@
+.profile__interest {
+    margin: 0;
+    padding-top: 16px;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: auto;
+}
+
+@media screen and (max-width: 767px){
+    .profile__interest {
+        font-size: 14px;
+        font-weight: normal;
+        line-height: auto;
+        margin: 0 auto;
+    }
+}
