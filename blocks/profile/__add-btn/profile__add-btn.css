@@ -11,6 +11,11 @@
     transition: opacity 0.2s ease-out;
     margin-left: auto;
 }
+
+.profile__add-btn:hover {
+    opacity: 0.6;
+}
+
 @media screen and (max-width: 767px){
     .profile__add-btn {
         width: 282px;
