@@ -9,17 +9,17 @@ let formElement = document.querySelector('.popup__form');
 
 function openPopup () {
     popup.classList.add('popup_opened');
-    putProfileValueIntoPopupForm();
+    editForm();
 };
 
 function closePopup () {
     popup.classList.remove('popup_opened');
 };
 
-function putProfileValueIntoPopupForm () {
+function editForm () {
     popupName.value = profileName.textContent;
     popupInterest.value = profileInterest.textContent;
-}
+};
 
 function handleFormSubmit (evt) {
     evt.preventDefault();
