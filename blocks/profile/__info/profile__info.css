@@ -3,10 +3,15 @@
     display: grid;
     grid-template-rows: 2;
     grid-template-columns: 2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 550px;
 }
 
 @media screen and (max-width: 767px){
     .profile__info {
-        padding: 26px 0 0 30px;
+        padding: 26px 19px 0 30px;
+        text-align: center;
     }
 }

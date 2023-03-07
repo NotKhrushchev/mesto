@@ -1,0 +1,12 @@
+.button {
+    background: none;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    transition: opacity 0.2s ease-out;
+    border: 0;
+}
+
+.button:hover {
+    opacity: 0.6;
+}

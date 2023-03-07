@@ -2,12 +2,9 @@
     width: 100%;
     height: 50px;
     background-color: black;
-    border: 0;
     color: white;
     font-size: 18px;
     font-weight: normal;
-    cursor: pointer;
-    transition: opacity 0.2s ease-out;
 }
 
 @media screen and (max-width: 767px){
@@ -15,8 +12,4 @@
         height: 46px;
         font-size: 14px;
     }
-}
-
-.popup__save-btn:hover{
-    opacity: 0.6;
 }

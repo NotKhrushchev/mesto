@@ -4,82 +4,80 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mesto</title>
+    <title>Место</title>
     <link rel="stylesheet" href="pages/index.css">
 </head>
 <body class="page">
-    <div class="page__content">
-        <header class="header">
-            <img src="./images/logo/mesto_logo.svg" alt="логотип 'Место'" class="logo">
-        </header>
-        <main class="main">
-            <section class="profile">
-                <img src='./images/Jacques-Yves-Cousteau.png' alt="аватар" class="profile__avatar">
-                <div class="profile__info">
-                    <h1 class="profile__name">Жак-Ив Кусто</h1>
-                    <p class="profile__interest">Исследователь океана</p>
-                    <button class="profile__edit-btn"></button>
-                </div>
-                <button class="profile__add-btn"></button>
-            </section>
-            <div class="elements">
-                <div class="element">
-                    <img src="./images/kirill-pershin-1088404-unsplash.png" alt="фото места" class="element__img">
-                    <div class="element__info">
-                        <span class="element__desc">Карачаевск</span>
-                        <button class="element__like-btn"></button>
-                    </div>
-                </div>
-                <div class="element">
-                    <img src="./images/kirill-pershin-1404681-unsplash.png" alt="фото места" class="element__img">
-                    <div class="element__info">
-                        <span class="element__desc">Гора Эльбрус</span>
-                        <button class="element__like-btn"></button>
-                    </div>
-                </div>
-                <div class="element">
-                    <img src="./images/kirill-pershin-1556355-unsplash.png" alt="фото места" class="element__img">
-                    <div class="element__info">
-                        <span class="element__desc">Домбай</span>
-                        <button class="element__like-btn"></button>
-                    </div>
-                </div>
-                <div class="element">
-                    <img src="./images/kirill-pershin-1404681-unsplash.png" alt="фото места" class="element__img">
-                    <div class="element__info">
-                        <span class="element__desc">Гора Эльбрус</span>
-                        <button class="element__like-btn"></button>
-                    </div>
-                </div>
-                <div class="element">
-                    <img src="./images/kirill-pershin-1556355-unsplash.png" alt="фото места" class="element__img">
-                    <div class="element__info">
-                        <span class="element__desc">Домбай</span>
-                        <button class="element__like-btn"></button>
-                    </div>
-                </div>
-                <div class="element">
-                    <img src="./images/kirill-pershin-1088404-unsplash.png" alt="фото места" class="element__img">
-                    <div class="element__info">
-                        <span class="element__desc">Карачаево-Черкесия</span>
-                        <button class="element__like-btn"></button>
-                    </div>
+    <header class="header">
+        <img src="./images/logo/mesto_logo.svg" alt="логотип 'Место'" class="logo">
+    </header>
+    <main class="main">
+        <section class="profile">
+            <img src='./images/Jacques-Yves-Cousteau.png' alt="аватар" class="profile__avatar">
+            <div class="profile__info">
+                <h1 class="profile__name">Жак-Ив Кусто</h1>
+                <p class="profile__interest">Исследователь океана</p>
+                <button class="profile__edit-btn button" type="button" aria-label="Редактировать профиль"></button>
+            </div>
+            <button class="profile__add-btn button" type="button" aria-label="Добавить фото"></button>
+        </section>
+        <section class="elements">
+            <div class="article">
+                <img src="./images/kirill-pershin-1088404-unsplash.png" alt="фото места" class="article__img">
+                <div class="article__info">
+                    <h2 class="article__desc">Карачаевск</h2>
+                    <button class="article__like-btn button" type="button" aria-label="Отметить понравившееся фото"></button>
                 </div>
             </div>
-        </main>
-        <footer class="footer">
-            <p class="footer__info">© 2023 Mesto Russia</p>
-        </footer>
-        <div class="popup">
-            <div class="popup__container">
-                <form class="popup__form">
-                    <h2 class="popup__header">Редактировать профиль</h2>
-                    <input type="text" class="popup__name">
-                    <input type="text" class="popup__interest">
-                    <button class="popup__save-btn" type="submit">Сохранить</button>
-                </form>
-                <button class="popup__close-btn"></button>
+            <div class="article">
+                <img src="./images/kirill-pershin-1404681-unsplash.png" alt="фото места" class="article__img">
+                <div class="article__info">
+                    <h2 class="article__desc">Гора Эльбрус</h2>
+                    <button class="article__like-btn button" type="button" aria-label="Отметить понравившееся фото"></button>
+                </div>
             </div>
+            <div class="article">
+                <img src="./images/kirill-pershin-1556355-unsplash.png" alt="фото места" class="article__img">
+                <div class="article__info">
+                    <h2 class="article__desc">Домбай</h2>
+                    <button class="article__like-btn button" type="button" aria-label="Отметить понравившееся фото"></button>
+                </div>
+            </div>
+            <div class="article">
+                <img src="./images/kirill-pershin-1404681-unsplash.png" alt="фото места" class="article__img">
+                <div class="article__info">
+                    <h2 class="article__desc">Гора Эльбрус</h2>
+                    <button class="article__like-btn button" type="button" aria-label="Отметить понравившееся фото"></button>
+                </div>
+            </div>
+            <div class="article">
+                <img src="./images/kirill-pershin-1556355-unsplash.png" alt="фото места" class="article__img">
+                <div class="article__info">
+                    <h2 class="article__desc">Домбай</h2>
+                    <button class="article__like-btn button" type="button" aria-label="Отметить понравившееся фото"></button>
+                </div>
+            </div>
+            <div class="article">
+                <img src="./images/kirill-pershin-1088404-unsplash.png" alt="фото места" class="article__img">
+                <div class="article__info">
+                    <h2 class="article__desc">Карачаево-Черкесия</h2>
+                    <button class="article__like-btn button" type="button" aria-label="Отметить понравившееся фото"></button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <p class="footer__info">© 2023 Mesto Russia</p>
+    </footer>
+    <div class="popup">
+        <div class="popup__container">
+            <form class="popup__form" name="edit-form">
+                <h2 class="popup__header">Редактировать профиль</h2>
+                <input type="text" class="popup__input popup__input_name">
+                <input type="text" class="popup__input popup__input_interest">
+                <button class="popup__save-btn button" type="submit" aria-label="Сохранить">Сохранить</button>
+            </form>
+            <button class="popup__close-btn button" type="button" aria-label="Закрыть окно"></button>
         </div>
     </div>
     <script src="./scripts/index.js"></script>

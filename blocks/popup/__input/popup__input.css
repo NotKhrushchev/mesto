@@ -1,15 +1,19 @@
-.popup__interest {
+.popup__input {
     border: unset;
     border-bottom: 1px solid gray;
     padding-bottom: 13px;
-    margin-bottom: 48px;
+    margin-bottom: 30px;
     font-size: 14px;
     font-weight: normal;
     width: 100%;
 }
 
+.popup__input:last-of-type {
+    margin-bottom: 42px;
+}
+
 @media screen and (max-width: 767px){
-    .popup__interest {
+    .popup__input:last-of-type {
         margin-bottom: 45px;
     }
 }
