@@ -1,8 +1,8 @@
 .profile__info {
     padding-left: 30px;
     display: grid;
-    grid-template-rows: 2;
-    grid-template-columns: 2;
+    grid-template-rows: repeat(2, fit-content);
+    grid-template-columns: repeat(2, fit-content);
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;

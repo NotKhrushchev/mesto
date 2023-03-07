@@ -2,11 +2,13 @@
     margin: 0;
     font-size: 18px;
     font-weight: normal;
+    line-height: 22px;
     color: #545454;
 }
 
 @media screen and (max-width: 767px){
     .footer__info {
         font-size: 14px;
+        line-height: 17px;
     }
 }

@@ -3,7 +3,7 @@
     padding-top: 16px;
     font-size: 18px;
     font-weight: normal;
-    line-height: auto;
+    line-height: 22px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -13,7 +13,8 @@
     .profile__interest {
         font-size: 14px;
         font-weight: normal;
-        line-height: auto;
+        line-height: 17px;
         margin: 0;
+        padding-top: 14px;
     }
 }
