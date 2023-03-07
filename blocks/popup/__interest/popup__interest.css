@@ -1,0 +1,15 @@
+.popup__interest {
+    border: unset;
+    border-bottom: 1px solid gray;
+    padding-bottom: 13px;
+    margin-bottom: 48px;
+    font-size: 14px;
+    font-weight: normal;
+    width: 100%;
+}
+
+@media screen and (max-width: 767px){
+    .popup__interest {
+        margin-bottom: 45px;
+    }
+}
