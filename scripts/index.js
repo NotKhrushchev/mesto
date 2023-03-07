@@ -10,13 +10,13 @@ let formElement = document.querySelector('.popup__form');
 console.log(formElement)
 
 function openPopup () {
-    popup.style.visibility = 'visible'
+    popup.style.display = 'flex'
     popupName.value = profileName.textContent;
     popupInterest.value = profileInterest.textContent
 };
 
 function closePopup () {
-    popup.style.visibility = 'hidden'
+    popup.style.display = 'none'
 };
 
 profileEditBtn.addEventListener('click', openPopup);
