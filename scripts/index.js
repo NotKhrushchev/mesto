@@ -9,7 +9,6 @@ let formElement = document.querySelector('.form');
 
 function openPopup () {
     popup.classList.add('popup_opened');
-    editForm();
 };
 
 function closePopup () {
@@ -17,6 +16,7 @@ function closePopup () {
 };
 
 function editForm () {
+    openPopup()
     popupName.value = profileName.textContent;
     popupInterest.value = profileInterest.textContent;
 };
@@ -28,7 +28,7 @@ function handleFormSubmit (evt) {
     closePopup();
 };
 
-profileEditBtn.addEventListener('click', openPopup);
+profileEditBtn.addEventListener('click', editForm);
 
 popupCloseBtn.addEventListener('click', closePopup);
 
