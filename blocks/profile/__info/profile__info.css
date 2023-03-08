@@ -6,12 +6,15 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    max-width: 550px;
+    gap: 0 18px
 }
 
 @media screen and (max-width: 767px){
     .profile__info {
+        grid-template-columns: minmax(0, auto) 18px;
         padding-top: 26px;
         text-align: center;
+        padding-left: 15px;
+        gap: 0 10px;
     }
 }
