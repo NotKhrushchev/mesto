@@ -1,8 +1,7 @@
-.article__like-btn {
+.element__like-btn {
     width: 22px;
     height: 19px;
     background-image: url(../../../images/Like.svg);
-    background-color: white;
     align-self: center;
     padding-right: 20px;
 }

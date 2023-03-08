@@ -2,10 +2,10 @@ let profileEditBtn = document.querySelector('.profile__edit-btn');
 let profileName = document.querySelector('.profile__name');
 let profileInterest = document.querySelector('.profile__interest');
 let popup = document.querySelector('.popup');
-let popupName = document.querySelector('.popup__input_name');
-let popupInterest = document.querySelector('.popup__input_interest');
+let popupName = document.querySelector('.popup__input_type_name');
+let popupInterest = document.querySelector('.popup__input_type_interest');
 let popupCloseBtn = document.querySelector('.popup__close-btn');
-let formElement = document.querySelector('.popup__form');
+let formElement = document.querySelector('.form');
 
 function openPopup () {
     popup.classList.add('popup_opened');

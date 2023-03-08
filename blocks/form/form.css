@@ -1,4 +1,4 @@
-.popup__form {
+.form {
     color: black;
     padding: 34px 36px 37px;
     display: flex;
@@ -8,7 +8,7 @@
 }
 
 @media screen and (max-width: 767px){
-    .popup__form {
+    .form {
         padding: 25px 22px 25px;
         align-items: center;
         width: 282px;
