@@ -1,7 +1,6 @@
 .page {
     min-width: 320px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-family: 'Inter';
+    font-family: 'Inter', 'Segoe UI', sans-serif;
     background-color: black;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;

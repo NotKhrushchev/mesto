@@ -16,7 +16,7 @@ function closePopup () {
 };
 
 function editForm () {
-    openPopup()
+    openPopup();
     popupName.value = profileName.textContent;
     popupInterest.value = profileInterest.textContent;
 };
