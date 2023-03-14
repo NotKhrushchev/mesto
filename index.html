@@ -21,49 +21,8 @@
             </div>
             <button class="profile__add-btn btn" type="button" aria-label="Добавить фото"></button>
         </section>
-        <section class="elements">
-            <article class="element">
-                <img src="./images/kirill-pershin-1088404-unsplash.png" alt="Фотография Карачаевска" class="element__img">
-                <div class="element__info">
-                    <h2 class="element__desc">Карачаевск</h2>
-                    <button class="element__like-btn btn" aria-label="Отметить понравившееся фото"></button>
-                </div>
-            </article>
-            <article class="element">
-                <img src="./images/kirill-pershin-1404681-unsplash.png" alt="Фотография Горы Эльбрус" class="element__img">
-                <div class="element__info">
-                    <h2 class="element__desc">Гора Эльбрус</h2>
-                    <button class="element__like-btn btn" type="button" aria-label="Отметить понравившееся фото"></button>
-                </div>
-            </article>
-            <article class="element">
-                <img src="./images/kirill-pershin-1556355-unsplash.png" alt="Фотография Домбая" class="element__img">
-                <div class="element__info">
-                    <h2 class="element__desc">Домбай</h2>
-                    <button class="element__like-btn btn" type="button" aria-label="Отметить понравившееся фото"></button>
-                </div>
-            </article>
-            <article class="element">
-                <img src="./images/kirill-pershin-1404681-unsplash.png" alt="Фотография Горы Эльбрус" class="element__img">
-                <div class="element__info">
-                    <h2 class="element__desc">Гора Эльбрус</h2>
-                    <button class="element__like-btn btn" type="button" aria-label="Отметить понравившееся фото"></button>
-                </div>
-            </article>
-            <article class="element">
-                <img src="./images/kirill-pershin-1556355-unsplash.png" alt="Фотография Домбая" class="element__img">
-                <div class="element__info">
-                    <h2 class="element__desc">Домбай</h2>
-                    <button class="element__like-btn btn" type="button" aria-label="Отметить понравившееся фото"></button>
-                </div>
-            </article>
-            <article class="element">
-                <img src="./images/kirill-pershin-1088404-unsplash.png" alt="Фотография Карачаевска" class="element__img">
-                <div class="element__info">
-                    <h2 class="element__desc">Карачаево-Черкесия</h2>
-                    <button class="element__like-btn btn" type="button" aria-label="Отметить понравившееся фото"></button>
-                </div>
-            </article>
+        <section class="cards">
+            <!--Здесь размещаются карточки-->
         </section>
     </main>
     <footer class="footer">
@@ -80,6 +39,15 @@
             <button class="popup__close-btn btn" type="button" aria-label="Закрыть окно"></button>
         </div>
     </div>
+    <template class="card-template">
+        <article class="card">
+            <img class="card__img">
+            <div class="card__info">
+                <h2 class="card__desc"></h2>
+                <button class="card__like-btn btn" aria-label="Отметить понравившееся фото"></button>
+            </div>
+        </article>
+    </template>
     <script src="./scripts/index.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-.elements {
+.cards {
     padding: 0;
     padding-top: 50px;
     display: grid;
@@ -8,7 +8,7 @@
 }
 
 @media screen and (max-width: 1024px){
-    .elements {
+    .cards {
         padding-top: 36px;
     }
 }
