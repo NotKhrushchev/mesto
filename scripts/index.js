@@ -1,11 +1,17 @@
 const profileEditBtn = document.querySelector('.profile__edit-btn');
 const profileName = document.querySelector('.profile__name');
 const profileInterest = document.querySelector('.profile__interest');
-const popup = document.querySelector('.popup');
-const popupName = document.querySelector('.popup__input_type_name');
-const popupInterest = document.querySelector('.popup__input_type_interest');
-const popupCloseBtn = document.querySelector('.popup__close-btn');
-const formElement = document.querySelector('.form');
+const popupProfile = document.querySelector('.popup_type_profile');
+const popupPlace = document.querySelector('.popup_type_place');
+const formName = document.querySelector('.form__input_type_name');
+const formInterest = document.querySelector('.form__input_type_interest');
+const formDesc = document.querySelector('.form__input_type_desc');
+const formLink = document.querySelector('.form__input_type_link')
+const popupProfileCloseBtn = document.querySelector('.popup_type_profile__close-btn');
+const popupPlaceCloseBtn = document.querySelector('.popup_type_place__close-btn')
+const formProfile = document.querySelector('.form_type_profile');
+const formPlace = document.querySelector('.form_type_place');
+const placeAddBtn = document.querySelector('.profile__add-btn');
 const initialCards = [
     {
       name: 'Эльбрус, Кавказ',
@@ -34,43 +40,73 @@ const initialCards = [
   ];
 
 const createCard = (data) => {
-    const newCard = document.querySelector('.card-template').content.querySelector('.card').cloneNode(true);
-    const cardImg = newCard.querySelector('.card__img');
-    const cardDesc = newCard.querySelector('.card__desc');
-    cardImg.setAttribute('src', data.link);
-    cardDesc.textContent = data.name;
-    return newCard;
+  const newCard = document.querySelector('.card-template').content.querySelector('.card').cloneNode(true);
+  const cardImg = newCard.querySelector('.card__img');
+  const cardDesc = newCard.querySelector('.card__desc');
+  const cardArea = document.querySelector('.cards');
+  cardImg.setAttribute('src', data.link);
+  cardDesc.textContent = data.name;
+  cardArea.append(newCard);
 };
 
 initialCards.forEach((data) => {
-    const card = createCard(data);
-    const cardArrea = document.querySelector('.cards');
-    cardArrea.append(card);
+  createCard(data)
 });
 
-const openPopup = () => {
-    popup.classList.add('popup_opened');
+const openProfilePopup = () => {
+  popupProfile.classList.add('popup_opened');
 };
 
-const closePopup = () => {
-    popup.classList.remove('popup_opened');
+const closeProfilePopup = () => {
+  popupProfile.classList.remove('popup_opened');
 };
 
-const editForm = () => {
-    openPopup();
-    popupName.value = profileName.textContent;
-    popupInterest.value = profileInterest.textContent;
+const openPlacePopup = () => {
+  popupPlace.classList.add('popup_opened');
 };
 
-const handleFormSubmit = (evt) => {
-    evt.preventDefault();
-    profileName.textContent = popupName.value;
-    profileInterest.textContent = popupInterest.value;
-    closePopup();
+const closePlacePopup = () => {
+  popupPlace.classList.remove('popup_opened');
 };
 
-profileEditBtn.addEventListener('click', editForm);
+const editProfileForm = () => {
+  openProfilePopup();
+  formName.value = profileName.textContent;
+  formInterest.value = profileInterest.textContent;
+};
 
-popupCloseBtn.addEventListener('click', closePopup);
+const handleFormProfileSubmit = (evt) => {
+  evt.preventDefault();
+  profileName.textContent = formName.value;
+  profileInterest.textContent = formInterest.value;
+  closeProfilePopup();
+};
 
-formElement.addEventListener('submit', handleFormSubmit);
+
+const editPlace = () => {
+  openPlacePopup();
+  formDesc.value = '';
+  formLink.value = '';
+};
+
+const handleFormPlaceSubmit = (evt) => {
+  evt.preventDefault();
+  const cardData = {
+    name: formDesc.value,
+    link: formLink.value
+  };
+  createCard(cardData);
+  closePlacePopup();
+};
+
+profileEditBtn.addEventListener('click', editProfileForm);
+
+popupProfileCloseBtn.addEventListener('click', closeProfilePopup);
+
+popupPlaceCloseBtn.addEventListener('click', closePlacePopup);
+
+formProfile.addEventListener('submit', handleFormProfileSubmit);
+
+placeAddBtn.addEventListener('click', editPlace);
+
+formPlace.addEventListener('submit', handleFormPlaceSubmit);

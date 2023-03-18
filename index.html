@@ -22,21 +22,32 @@
             <button class="profile__add-btn btn" type="button" aria-label="Добавить фото"></button>
         </section>
         <section class="cards">
-            <!--Здесь размещаются карточки-->
+            <!--Место для размещения карточек-->
         </section>
     </main>
     <footer class="footer">
         <p class="footer__info">© 2023 Mesto Russia</p>
     </footer>
-    <div class="popup">
+    <div class="popup popup_type_profile">
         <div class="popup__container">
-            <form class="form" name="edit-form">
-                <h2 class="popup__header">Редактировать профиль</h2>
-                <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Введите ваше имя">
-                <input type="text" name="description" class="popup__input popup__input_type_interest" placeholder="Укажите, чем вы занимаетесь">
-                <button class="popup__save-btn btn" type="submit" aria-label="Сохранить">Сохранить</button>
-            </form>
-            <button class="popup__close-btn btn" type="button" aria-label="Закрыть окно"></button>
+            <form class="form form_type_profile" name="edit-form">
+                <h2 class="form__header">Редактировать профиль</h2>
+                <input type="text" name="desc" class="form__input form__input_type_name" placeholder="Введите ваше имя">
+                <input type="text" name="link" class="form__input form__input_type_interest" placeholder="Укажите, чем вы занимаетесь">
+                <button class="form__save-btn btn" type="submit" aria-label="Сохранить">Сохранить</button>
+            </form>   
+            <button class="popup__close-btn popup_type_profile__close-btn btn" type="button" aria-label="Закрыть окно"></button>
+        </div>
+    </div>
+    <div class="popup popup_type_place">
+        <div class="popup__container">
+            <form class="form form_type_place" name="edit-form">
+                <h2 class="form__header">Новое место</h2>
+                <input type="text" name="description" class="form__input form__input_type_desc" placeholder="Название">
+                <input type="text" name="link" class="form__input form__input_type_link" placeholder="Ссылка на картинку">
+                <button class="form__save-btn btn" type="submit" aria-label="Сохранить">Сохранить</button>
+            </form>   
+            <button class="popup__close-btn popup_type_place__close-btn btn" type="button" aria-label="Закрыть окно"></button>
         </div>
     </div>
     <template class="card-template">
