@@ -48,6 +48,7 @@ const createCard = (data) => {
   const cardRemoveBtn = newCard.querySelector('.card__remove-btn');
   const cardLikeBtn = newCard.querySelector('.card__like-btn');
   cardImg.setAttribute('src', data.link);
+  cardImg.setAttribute('alt', 'Фотография места: ' + data.name)
   cardDesc.textContent = data.name;
   
   cardLikeBtn.addEventListener('click', (evt) => {
@@ -68,6 +69,7 @@ const createCard = (data) => {
     const cardImg = document.querySelector('.popup__img');
     const cardCaption = document.querySelector('.popup__caption');
     cardImg.setAttribute('src', currentImg.src);
+    cardImg.setAttribute('alt', currentImg.alt)
     cardCaption.textContent = currentCardCaption.textContent;
     popupImg.classList.add('popup_opened');
     popupImgCloseBtn.addEventListener('click', () => {

@@ -43,19 +43,19 @@
         <div class="popup__container">
             <form class="form form_type_place" name="edit-form">
                 <h2 class="form__header">Новое место</h2>
-                <input type="text" name="description" class="form__input form__input_type_desc" placeholder="Название">
-                <input type="text" name="link" class="form__input form__input_type_link" placeholder="Ссылка на картинку">
+                <input type="text" name="description" class="form__input form__input_type_desc" placeholder="Название" required>
+                <input type="text" name="link" class="form__input form__input_type_link" placeholder="Ссылка на картинку" required>
                 <button class="form__save-btn btn" type="submit" aria-label="Сохранить">Сохранить</button>
             </form>   
             <button class="popup__close-btn popup_type_place__close-btn btn" type="button" aria-label="Закрыть окно"></button>
         </div>
     </div>
     <div class="popup popup_type_img">
-        <figure class="popup__img-content">
-            <img class="popup__img">
-            <figcaption class="popup__caption"></figcaption>
+        <div class="popup__img-content">
+            <img class="popup__img" src="-" alt="-">
+            <p class="popup__caption"></p>
             <button class="popup__close-btn popup_type_img__close-btn btn" type="button" aria-label="Закрыть окно"></button>
-        </figure>
+        </div>
     </div>
     <template class="card-template">
         <article class="card">
