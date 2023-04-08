@@ -19,6 +19,7 @@ const popupImg = document.querySelector('.popup__img');
 const popupCaption = document.querySelector('.popup__caption');
 const cardArea = document.querySelector('.cards');
 
+
 const createCard = (data) => {
   const newCard = cardTemplate.cloneNode(true);
   const cardImg = newCard.querySelector('.card__img');
@@ -67,9 +68,19 @@ const closePopup = (popupType) => {
 };
 
 const editProfileForm = () => {
+  reviewValidity(formProfile);
   formName.value = profileName.textContent;
   formInterest.value = profileInterest.textContent;
   openPopup(popupTypeProfile);
+  reviewButtonState(formProfile);
+};
+
+const editPlace = () => {
+  reviewValidity(formPlace);
+  openPopup(popupTypePlace);
+  formDesc.value = '';
+  formLink.value = '';
+  reviewButtonState(formPlace);
 };
 
 const handleFormProfileSubmit = (evt) => {
@@ -77,12 +88,6 @@ const handleFormProfileSubmit = (evt) => {
   profileName.textContent = formName.value;
   profileInterest.textContent = formInterest.value;
   closePopup(popupTypeProfile);
-};
-
-const editPlace = () => {
-  openPopup(popupTypePlace);
-  formDesc.value = '';
-  formLink.value = '';
 };
 
 const handleFormPlaceSubmit = (evt) => {
@@ -95,8 +100,6 @@ const handleFormPlaceSubmit = (evt) => {
   closePopup(popupTypePlace);
 };
 
-profileEditBtn.addEventListener('click', editProfileForm);
-
 popupTypeProfileCloseBtn.addEventListener('click', () => {
   closePopup(popupTypeProfile);
 });
@@ -108,6 +111,8 @@ popupTypePlaceCloseBtn.addEventListener('click', () => {
 popupTypeImgCloseBtn.addEventListener('click', () => {
   closePopup(popupTypeImg);
 });
+
+profileEditBtn.addEventListener('click', editProfileForm);
 
 formProfile.addEventListener('submit', handleFormProfileSubmit);
 
