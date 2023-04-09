@@ -62,6 +62,9 @@ initialCards.forEach((data) => {
 
 const openPopup = (popupType) => {
   popupType.classList.add('popup_opened');
+  document.addEventListener('keydown', (evt) => {
+    escClosePopup(popupType, evt);
+  });
 };
 
 const closePopup = (popupType) => {
@@ -74,6 +77,12 @@ const overlayClosePopup = (popupType) => {
       closePopup(popupType);
     }
   });
+};
+
+const escClosePopup = (popupType, evt) => {
+  if (evt.key === 'Escape') {
+    closePopup(popupType);
+  }
 };
 
 const editProfileForm = () => {
