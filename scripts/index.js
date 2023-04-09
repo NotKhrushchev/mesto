@@ -42,9 +42,10 @@ const createCard = (data) => {
 
   cardImg.addEventListener('click', () => {
     popupImg.setAttribute('src', data.link);
-    popupImg.setAttribute('alt', `Фото места: ${data.name}`)
+    popupImg.setAttribute('alt', `Фото места: ${data.name}`);
     popupCaption.textContent = data.name;
     openPopup(popupTypeImg);
+    overlayClosePopup(popupTypeImg);
   });
 
   return newCard;
@@ -67,20 +68,30 @@ const closePopup = (popupType) => {
   popupType.classList.remove('popup_opened');
 };
 
+const overlayClosePopup = (popupType) => {
+  popupType.addEventListener("click", (evt) => {
+    if (evt.currentTarget === evt.target) {
+      closePopup(popupType);
+    }
+  });
+};
+
 const editProfileForm = () => {
   reviewValidity(formProfile);
   formName.value = profileName.textContent;
   formInterest.value = profileInterest.textContent;
   openPopup(popupTypeProfile);
   reviewButtonState(formProfile);
+  overlayClosePopup(popupTypeProfile);
 };
 
-const editPlace = () => {
+const editPlaceForm = () => {
   reviewValidity(formPlace);
   openPopup(popupTypePlace);
   formDesc.value = '';
   formLink.value = '';
   reviewButtonState(formPlace);
+  overlayClosePopup(popupTypePlace);
 };
 
 const handleFormProfileSubmit = (evt) => {
@@ -116,6 +127,6 @@ profileEditBtn.addEventListener('click', editProfileForm);
 
 formProfile.addEventListener('submit', handleFormProfileSubmit);
 
-placeAddBtn.addEventListener('click', editPlace);
+placeAddBtn.addEventListener('click', editPlaceForm);
 
 formPlace.addEventListener('submit', handleFormPlaceSubmit);
