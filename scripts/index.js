@@ -45,7 +45,6 @@ const createCard = (data) => {
     popupImg.setAttribute('alt', `Фото места: ${data.name}`);
     popupCaption.textContent = data.name;
     openPopup(popupTypeImg);
-    overlayClosePopup(popupTypeImg);
   });
 
   return newCard;
@@ -62,16 +61,15 @@ initialCards.forEach((data) => {
 
 const openPopup = (popupType) => {
   popupType.classList.add('popup_opened');
-  document.addEventListener('keydown', (evt) => {
-    escClosePopup(popupType, evt);
-  });
+  document.addEventListener('keydown', closePopupByEsc);
 };
 
 const closePopup = (popupType) => {
   popupType.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupByEsc);
 };
 
-const overlayClosePopup = (popupType) => {
+const closePopupByOverlay = (popupType) => {
   popupType.addEventListener("click", (evt) => {
     if (evt.currentTarget === evt.target) {
       closePopup(popupType);
@@ -79,9 +77,10 @@ const overlayClosePopup = (popupType) => {
   });
 };
 
-const escClosePopup = (popupType, evt) => {
+const closePopupByEsc = (evt) => {
+  const currentPopup = document.querySelector('.popup_opened')
   if (evt.key === 'Escape') {
-    closePopup(popupType);
+    closePopup(currentPopup);
   }
 };
 
@@ -91,7 +90,6 @@ const editProfileForm = () => {
   formInterest.value = profileInterest.textContent;
   openPopup(popupTypeProfile);
   reviewButtonState(formProfile, validationData);
-  overlayClosePopup(popupTypeProfile);
 };
 
 const editPlaceForm = () => {
@@ -100,7 +98,6 @@ const editPlaceForm = () => {
   formDesc.value = '';
   formLink.value = '';
   reviewButtonState(formPlace, validationData);
-  overlayClosePopup(popupTypePlace);
 };
 
 const handleFormProfileSubmit = (evt) => {
@@ -119,6 +116,12 @@ const handleFormPlaceSubmit = (evt) => {
   renderCard(cardData);
   closePopup(popupTypePlace);
 };
+
+closePopupByOverlay(popupTypeProfile);
+
+closePopupByOverlay(popupTypePlace);
+
+closePopupByOverlay(popupTypeImg);
 
 popupTypeProfileCloseBtn.addEventListener('click', () => {
   closePopup(popupTypeProfile);
