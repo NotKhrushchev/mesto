@@ -86,20 +86,20 @@ const escClosePopup = (popupType, evt) => {
 };
 
 const editProfileForm = () => {
-  reviewValidity(formProfile);
+  reviewValidity(formProfile, validationData);
   formName.value = profileName.textContent;
   formInterest.value = profileInterest.textContent;
   openPopup(popupTypeProfile);
-  reviewButtonState(formProfile);
+  reviewButtonState(formProfile, validationData);
   overlayClosePopup(popupTypeProfile);
 };
 
 const editPlaceForm = () => {
-  reviewValidity(formPlace);
+  reviewValidity(formPlace, validationData);
   openPopup(popupTypePlace);
   formDesc.value = '';
   formLink.value = '';
-  reviewButtonState(formPlace);
+  reviewButtonState(formPlace, validationData);
   overlayClosePopup(popupTypePlace);
 };
 
