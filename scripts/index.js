@@ -3,10 +3,10 @@ const profileName = document.querySelector('.profile__name');
 const profileInterest = document.querySelector('.profile__interest');
 const popupTypeProfile = document.querySelector('.popup_type_profile');
 const popupTypePlace = document.querySelector('.popup_type_place');
-const formName = document.querySelector('.form__input_type_name');
-const formInterest = document.querySelector('.form__input_type_interest');
-const formDesc = document.querySelector('.form__input_type_desc');
-const formLink = document.querySelector('.form__input_type_link')
+const formInputName = document.querySelector('.form__input_type_name');
+const formInputInterest = document.querySelector('.form__input_type_interest');
+const formInputDescription = document.querySelector('.form__input_type_desc');
+const formInputLink = document.querySelector('.form__input_type_link')
 const popupTypeProfileCloseBtn = document.querySelector('.profile-close-btn');
 const popupTypePlaceCloseBtn = document.querySelector('.place-close-btn');
 const popupTypeImgCloseBtn = document.querySelector('.img-close-btn');
@@ -86,8 +86,8 @@ const closePopupByEsc = (evt) => {
 
 const editProfileForm = () => {
   reviewValidity(formProfile, validationData);
-  formName.value = profileName.textContent;
-  formInterest.value = profileInterest.textContent;
+  formInputName.value = profileName.textContent;
+  formInputInterest.value = profileInterest.textContent;
   openPopup(popupTypeProfile);
   reviewButtonState(formProfile, validationData);
 };
@@ -95,23 +95,22 @@ const editProfileForm = () => {
 const editPlaceForm = () => {
   reviewValidity(formPlace, validationData);
   openPopup(popupTypePlace);
-  formDesc.value = '';
-  formLink.value = '';
+  formPlace.reset()
   reviewButtonState(formPlace, validationData);
 };
 
 const handleFormProfileSubmit = (evt) => {
   evt.preventDefault();
-  profileName.textContent = formName.value;
-  profileInterest.textContent = formInterest.value;
+  profileName.textContent = formInputName.value;
+  profileInterest.textContent = formInputInterest.value;
   closePopup(popupTypeProfile);
 };
 
 const handleFormPlaceSubmit = (evt) => {
   evt.preventDefault();
   const cardData = {
-    name: formDesc.value,
-    link: formLink.value
+    name: formInputDescription.value,
+    link: formInputLink.value
   };
   renderCard(cardData);
   closePopup(popupTypePlace);

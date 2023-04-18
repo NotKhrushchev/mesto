@@ -9,11 +9,11 @@
 </head>
 <body class="page">
     <header class="header">
-        <img src="./images/logo/mesto_logo.svg" alt="Логотип 'Место'" class="header__logo">
+        <img src="./images/logo/mesto_logo.svg" alt="Логотип 'Место'" class="header__logo" draggable="false">
     </header>
     <main class="main">
         <section class="profile">
-            <img src="./images/Jacques-Yves-Cousteau.png" alt="Аватар" class="profile__avatar">
+            <img src="./images/Jacques-Yves-Cousteau.png" alt="Аватар" class="profile__avatar" draggable="false">
             <div class="profile__info">
                 <h1 class="profile__name">Жак-Ив Кусто</h1>
                 <p class="profile__interest">Исследователь океана</p>
@@ -56,7 +56,7 @@
     </div>
     <div class="popup popup_type_img">
         <div class="popup__img-content">
-            <img class="popup__img" src="./images/Close.svg" alt="-">
+            <img class="popup__img" src="./images/Close.svg" alt="-" draggable="false">
             <p class="popup__caption"></p>
             <button class="popup__close-btn img-close-btn btn" type="button" aria-label="Закрыть окно"></button>
         </div>
@@ -64,7 +64,7 @@
     <template class="card-template">
         <article class="card">
             <button class="card__remove-btn btn" aria-label="Удалить карточку"></button>
-            <img class="card__img">
+            <img class="card__img" draggable="false">
             <div class="card__info">
                 <h2 class="card__desc"></h2>
                 <button class="card__like-btn btn" aria-label="Отметить понравившееся фото"></button>
