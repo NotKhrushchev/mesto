@@ -29,11 +29,9 @@ export class Card {
         this._newCard.querySelector('.card__like-btn').addEventListener('click', () => {
             this._handleLikeBtn();
         });
-
         this._newCard.querySelector('.card__remove-btn').addEventListener('click', () => {
             this._handleRemoveBtn();
         });
-
         this._newCard.querySelector('.card__img').addEventListener('click', () => {
             this._handleOpenPopup()
         });
