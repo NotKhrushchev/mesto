@@ -1,3 +1,10 @@
+import { initialCards } from "./cards.js";
+import { Card } from "./Card.js";
+import { reviewValidity } from "./validate.js";
+import { reviewButtonState } from "./validate.js";
+import { validationData } from "./validate.js";
+
+const cardArea = document.querySelector('.cards');
 const profileEditBtn = document.querySelector('.profile__edit-btn');
 const profileName = document.querySelector('.profile__name');
 const profileInterest = document.querySelector('.profile__interest');
@@ -13,51 +20,9 @@ const popupTypeImgCloseBtn = document.querySelector('.img-close-btn');
 const formProfile = document.querySelector('.form_type_profile');
 const formPlace = document.querySelector('.form_type_place');
 const placeAddBtn = document.querySelector('.profile__add-btn');
-const cardTemplate = document.querySelector('.card-template').content.querySelector('.card');
 const popupTypeImg = document.querySelector('.popup_type_img');
 const popupImg = document.querySelector('.popup__img');
 const popupCaption = document.querySelector('.popup__caption');
-const cardArea = document.querySelector('.cards');
-
-
-const createCard = (data) => {
-  const newCard = cardTemplate.cloneNode(true);
-  const cardImg = newCard.querySelector('.card__img');
-  const cardDesc = newCard.querySelector('.card__desc');
-  const cardRemoveBtn = newCard.querySelector('.card__remove-btn');
-  const cardLikeBtn = newCard.querySelector('.card__like-btn');
-  cardImg.setAttribute('src', data.link);
-  cardImg.setAttribute('alt', `Фотография места: ${data.name}`);
-  cardDesc.textContent = data.name;
-  
-  cardLikeBtn.addEventListener('click', (evt) => {
-    const currentLike = evt.target;
-    currentLike.classList.toggle('card__like-btn_liked');
-  });
-
-  cardRemoveBtn.addEventListener('click', (evt) => {
-    const currentCard = evt.target.closest('.card');
-    currentCard.remove();
-  });
-
-  cardImg.addEventListener('click', () => {
-    popupImg.setAttribute('src', data.link);
-    popupImg.setAttribute('alt', `Фото места: ${data.name}`);
-    popupCaption.textContent = data.name;
-    openPopup(popupTypeImg);
-  });
-
-  return newCard;
-};
-
-const renderCard = (data) => {
-  const finishedCard = createCard(data);
-  cardArea.prepend(finishedCard);
-};
-
-initialCards.forEach((data) => {
-  renderCard(data);
-});
 
 const openPopup = (popupType) => {
   popupType.classList.add('popup_opened');
@@ -112,9 +77,30 @@ const handleFormPlaceSubmit = (evt) => {
     name: formInputDescription.value,
     link: formInputLink.value
   };
-  renderCard(cardData);
+  prependNewCard(cardArea, createNewCard(cardData));
   closePopup(popupTypePlace);
 };
+
+const openPopupImg = (data) => {
+  popupImg.setAttribute('src', data.link);
+  popupImg.setAttribute('alt', `Фото места: ${data.name}`);
+  popupCaption.textContent = data.name;
+  openPopup(popupTypeImg);
+};
+
+const createNewCard = (item) => {
+  const card = new Card(item, '.card-template', openPopupImg);
+  const cardElement = card.generateCard();
+  return cardElement;
+};
+
+const prependNewCard = (container, cardElement) => {
+  container.prepend(cardElement);
+};
+
+initialCards.forEach(item => {
+  prependNewCard(cardArea, createNewCard(item));
+})
 
 closePopupByOverlay(popupTypeProfile);
 

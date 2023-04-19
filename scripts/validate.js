@@ -1,4 +1,4 @@
-const validationData = {
+export const validationData = {
     formSelector: '.form',
     inputSelector: '.form__input',
     submitButtonSelector: '.form__save-btn',
@@ -83,3 +83,5 @@ const toggleButtonState = (inputList, buttonElement, {inactiveButtonClass}) => {
 };
 
 enableValidation(validationData);
+
+export {reviewValidity, reviewButtonState};

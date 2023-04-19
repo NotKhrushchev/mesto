@@ -1,4 +1,4 @@
-const initialCards = [
+export const initialCards = [
     {
       name: 'Коми',                                                                                                                  
       link: 'https://images.unsplash.com/photo-1675544952106-a834ffd24c0e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80'
@@ -23,4 +23,4 @@ const initialCards = [
       name: 'Эльбрус, Кавказ',
       link: 'https://images.unsplash.com/photo-1521311587563-6a3fb9fbaff7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
     }
-  ];
+];
