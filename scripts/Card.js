@@ -1,8 +1,6 @@
 export class Card {
     constructor (data, templateSelector, openPopupImg) {
         this._data = data;
-        this._name = data.name;
-        this._link = data.link;
         this._templateSelector = templateSelector;
         this._openPopupImg = openPopupImg;
     }
@@ -26,25 +24,29 @@ export class Card {
     }
 
     _setEventListeners () {
-        this._newCard.querySelector('.card__like-btn').addEventListener('click', () => {
+        this._newCardLikeBtn.addEventListener('click', () => {
             this._handleLikeBtn();
         });
-        this._newCard.querySelector('.card__remove-btn').addEventListener('click', () => {
+        this._newCardRemoveBtn.addEventListener('click', () => {
             this._handleRemoveBtn();
         });
-        this._newCard.querySelector('.card__img').addEventListener('click', () => {
+        this._newCardImg.addEventListener('click', () => {
             this._handleOpenPopup()
         });
     }
 
     generateCard () {
         this._newCard = this._getCardElement();
-
+        this._newCardImg = this._newCard.querySelector('.card__img');
+        this._newCardDescription = this._newCard.querySelector('.card__desc');
+        this._newCardLikeBtn = this._newCard.querySelector('.card__like-btn');
+        this._newCardRemoveBtn = this._newCard.querySelector('.card__remove-btn');
+        
         this._setEventListeners();
 
-        this._newCard.querySelector('.card__img').setAttribute('src', this._link);
-        this._newCard.querySelector('.card__img').setAttribute('alt', `Фотография места: ${this._name}`);
-        this._newCard.querySelector('.card__desc').textContent = this._name;
+        this._newCardImg.setAttribute('src', this._data.link);
+        this._newCardImg.setAttribute('alt', `Фотография места: ${this._data.name}`);
+        this._newCardDescription.textContent = this._data.name;
         
         return this._newCard;
     }
