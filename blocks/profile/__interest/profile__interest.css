@@ -9,7 +9,7 @@
     overflow: hidden;
 }
 
-@media screen and (max-width: 767px){
+@media screen and (max-width: 911px){
     .profile__interest {
         font-size: 14px;
         line-height: 17px;

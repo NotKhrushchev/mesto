@@ -29,11 +29,12 @@ const placeAddBtn = document.querySelector('.profile__add-btn');
 const popupTypeImg = document.querySelector('.popup_type_img');
 const popupImg = document.querySelector('.popup__img');
 const popupCaption = document.querySelector('.popup__caption');
-
+const popupList = Array.from(document.querySelectorAll('.popup'));
 const profileFormValidation = new FormValidator(validationData, formProfile);
+const placeFormValidation = new FormValidator(validationData, formPlace);
+
 profileFormValidation.enableValidation();
 
-const placeFormValidation = new FormValidator(validationData, formPlace);
 placeFormValidation.enableValidation();
 
 const openPopup = (popupType) => {
@@ -114,11 +115,15 @@ initialCards.forEach(item => {
   prependNewCard(cardArea, createNewCard(item));
 });
 
-closePopupByOverlay(popupTypeProfile);
+popupList.forEach(popupElement => {
+  closePopupByOverlay(popupElement);
+})
 
-closePopupByOverlay(popupTypePlace);
+// closePopupByOverlay(popupTypeProfile);
 
-closePopupByOverlay(popupTypeImg);
+// closePopupByOverlay(popupTypePlace);
+
+// closePopupByOverlay(popupTypeImg);
 
 popupTypeProfileCloseBtn.addEventListener('click', () => {
   closePopup(popupTypeProfile);

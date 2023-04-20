@@ -9,7 +9,7 @@
     grid-column: 2 / 3;
 }
 
-@media screen and (max-width: 767px){
+@media screen and (max-width: 911px){
     .profile__edit-btn {
         width: 18px;
         height: 18px;
