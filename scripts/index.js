@@ -67,14 +67,14 @@ const editProfileForm = () => {
   formInputName.value = profileName.textContent;
   formInputInterest.value = profileInterest.textContent;
   openPopup(popupTypeProfile);
-  profileFormValidation.reviewButtonState();
+  profileFormValidation.toggleButtonState();
 };
 
 const editPlaceForm = () => {
   placeFormValidation.reviewValidity();
   openPopup(popupTypePlace);
   formPlace.reset()
-  placeFormValidation.reviewButtonState();
+  placeFormValidation.toggleButtonState();
 };
 
 const handleFormProfileSubmit = (evt) => {
@@ -117,13 +117,7 @@ initialCards.forEach(item => {
 
 popupList.forEach(popupElement => {
   closePopupByOverlay(popupElement);
-})
-
-// closePopupByOverlay(popupTypeProfile);
-
-// closePopupByOverlay(popupTypePlace);
-
-// closePopupByOverlay(popupTypeImg);
+});
 
 popupTypeProfileCloseBtn.addEventListener('click', () => {
   closePopup(popupTypeProfile);
