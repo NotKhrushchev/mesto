@@ -7,17 +7,17 @@ export class FormValidator {
         this._inputErrorClass = data.inputErrorClass;
     }
 
-    _showError = (inputElement, errorMessage) => {
+    _showError(inputElement, errorMessage)  {
         this._errorElement = this._formElement.querySelector(`.${inputElement.id}-error`).textContent = errorMessage;
         inputElement.classList.add(this._inputErrorClass);
     };
 
-    _hideError = (inputElement) => {
+    _hideError(inputElement) {
         this._formElement.querySelector(`.${inputElement.id}-error`).textContent = '';
         inputElement.classList.remove(this._inputErrorClass);
     };
 
-    _checkInputValidity = (inputElement) => {
+    _checkInputValidity(inputElement) {
         if (inputElement.validity.valid) {
             this._hideError(inputElement);
         } else {
@@ -25,13 +25,13 @@ export class FormValidator {
         }
     };
 
-    _hasInvalidInput = () => {
+    _hasInvalidInput() {
         return this._inputList.some(inputElement => {
             return !inputElement.validity.valid;
         });
     };
 
-    _setEventListeners = () => {
+    _setEventListeners() {
         this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
         this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
         this.toggleButtonState();
@@ -43,14 +43,14 @@ export class FormValidator {
         });
     };
 
-    enableValidation = () => {
+    enableValidation() {
         this._formElement.addEventListener('submit', (evt) => {
             evt.preventDefault();
         });
         this._setEventListeners();
     };
 
-    toggleButtonState = () => {
+    toggleButtonState() {
         if (this._hasInvalidInput()) {
             this._buttonElement.classList.add(this._inactiveButtonClass);
             this._buttonElement.setAttribute('disabled', '');
@@ -61,7 +61,7 @@ export class FormValidator {
     };
 
     
-    reviewValidity = () => {
+    reviewValidity() {
         this._inputList.forEach(inputElement => {
             if (!inputElement.validity.valid) {
                 this._hideError(inputElement);
