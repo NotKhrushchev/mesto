@@ -35,3 +35,4 @@ export const validationData = {
 
 export const cardContainerSelector = '.cards';
 export const popupProfileSelector = '.popup_type_profile';
+export const popupImgSelector = '.popup_type_img';

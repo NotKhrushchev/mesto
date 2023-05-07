@@ -24,11 +24,6 @@ export class Card {
         this._newCard.remove();
     }
 
-    /** Открытие попапа картинки */
-    _handleOpenPopup() {
-        this._openPopupImg(this._data)
-    }
-
     /** Слушатели на элементы карточки */
     _setEventListeners() {
         this._newCardLikeBtn.addEventListener('click', () => {
@@ -38,7 +33,7 @@ export class Card {
             this._handleRemoveBtn();
         });
         this._newCardImg.addEventListener('click', () => {
-            this._handleOpenPopup()
+            this._openPopupImg(this._data)
         });
     }
 

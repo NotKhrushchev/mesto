@@ -13,7 +13,7 @@ export class Popup {
     }
 
     /** Открытие попапа */
-    open = () => {
+    open() {
         this._popup.classList.add('popup_opened');
     }
 
@@ -38,7 +38,7 @@ export class Popup {
         });
 
         document.addEventListener('keydown', (evt) => {
-            this._handleEscButton(evt)
+            this._handleEscButton(evt);
         });
     }
 }

@@ -1,7 +1,8 @@
-import { cardContainerSelector, initialCards, popupProfileSelector, validationData } from "./scripts/utils/constants.js";
+import { cardContainerSelector, initialCards, popupImgSelector, popupProfileSelector, validationData } from "./scripts/utils/constants.js";
 import { Card } from "./scripts/components/Card.js";
 import { FormValidator } from "./scripts/components/FormValidator.js";
 import { Section } from "./scripts/components/Section.js";
+import { PopupWithImage } from "./scripts/components/PopupWithImage.js";
 
 
 const profileEditBtn = document.querySelector('.profile__edit-btn');
@@ -16,9 +17,6 @@ const formInputLink = document.querySelector('.form__input_type_link');
 const formProfile = document.querySelector('.form_type_profile');
 const formPlace = document.querySelector('.form_type_place');
 const placeAddBtn = document.querySelector('.profile__add-btn');
-const popupTypeImg = document.querySelector('.popup_type_img');
-const popupImg = document.querySelector('.popup__img');
-const popupCaption = document.querySelector('.popup__caption');
 const profileFormValidation = new FormValidator(validationData, formProfile);
 const placeFormValidation = new FormValidator(validationData, formPlace);
 
@@ -50,15 +48,11 @@ const handleFormPlaceSubmit = (evt) => {
   closePopup(popupTypePlace);
 };
 
-const openPopupImg = (data) => {
-  popupImg.setAttribute('src', data.link);
-  popupImg.setAttribute('alt', `Фото места: ${data.name}`);
-  popupCaption.textContent = data.name;
-  openPopup(popupTypeImg);
-};
+const popupImg = new PopupWithImage(popupImgSelector);
+popupImg.setEventListeners();
 
 const createNewCard = (item) => {
-  const card = new Card(item, '.card-template', openPopupImg);
+  const card = new Card(item, '.card-template', popupImg.open);
   const cardElement = card.generateCard();
   return cardElement;
 };
@@ -66,7 +60,7 @@ const createNewCard = (item) => {
 const cardList = new Section({
   items: initialCards,
   renderer: (item) => {
-    const card = new Card(item, '.card-template', openPopupImg);
+    const card = new Card(item, '.card-template', popupImg.open);
     const cardElement = card.generateCard();
     cardList.setItem(cardElement);
   }
@@ -75,7 +69,7 @@ const cardList = new Section({
 cardList.renderItems();
 
 const prependNewCard = (containerSelector, cardElement) => {
-  const container = document.querySelector(containerSelector)
+  const container = document.querySelector(containerSelector);
   container.prepend(cardElement);
 };
 
