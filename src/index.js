@@ -1,8 +1,9 @@
-import { initialCards, validationData } from "./scripts/utils/constants.js";
+import { cardContainerSelector, initialCards, validationData } from "./scripts/utils/constants.js";
 import { Card } from "./scripts/components/Card.js";
 import { FormValidator } from "./scripts/components/FormValidator.js";
+import { Section } from "./scripts/components/Section.js";
 
-const cardArea = document.querySelector('.cards');
+
 const profileEditBtn = document.querySelector('.profile__edit-btn');
 const profileName = document.querySelector('.profile__name');
 const profileInterest = document.querySelector('.profile__interest');
@@ -82,7 +83,7 @@ const handleFormPlaceSubmit = (evt) => {
     name: formInputDescription.value,
     link: formInputLink.value
   };
-  prependNewCard(cardArea, createNewCard(cardData));
+  prependNewCard(cardContainerSelector, createNewCard(cardData));
   closePopup(popupTypePlace);
 };
 
@@ -99,13 +100,21 @@ const createNewCard = (item) => {
   return cardElement;
 };
 
-const prependNewCard = (container, cardElement) => {
+const cardList = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    const card = new Card(item, '.card-template', openPopupImg);
+    const cardElement = card.generateCard();
+    cardList.setItem(cardElement);
+  }
+}, cardContainerSelector);
+
+cardList.renderItems()
+
+const prependNewCard = (containerSelector, cardElement) => {
+  const container = document.querySelector(containerSelector)
   container.prepend(cardElement);
 };
-
-initialCards.forEach(item => {
-  prependNewCard(cardArea, createNewCard(item));
-});
 
 popupList.forEach(popupElement => {
   initClosePopupByOverlay(popupElement);

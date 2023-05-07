@@ -1,3 +1,4 @@
+/** Валидация */
 export class FormValidator {
     constructor (data, formElement) {
         this._formElement = formElement;
@@ -7,16 +8,19 @@ export class FormValidator {
         this._inputErrorClass = data.inputErrorClass;
     }
 
+    /** Показать ошибку */
     _showError(inputElement, errorMessage)  {
         this._errorElement = this._formElement.querySelector(`.${inputElement.id}-error`).textContent = errorMessage;
         inputElement.classList.add(this._inputErrorClass);
     };
 
+    /** Скрыть ошибку */
     _hideError(inputElement) {
         this._formElement.querySelector(`.${inputElement.id}-error`).textContent = '';
         inputElement.classList.remove(this._inputErrorClass);
     };
 
+    /** Проверка инпута на валидность */
     _checkInputValidity(inputElement) {
         if (inputElement.validity.valid) {
             this._hideError(inputElement);
@@ -25,12 +29,14 @@ export class FormValidator {
         }
     };
 
+    /** Отслеживание валидности инпутов */
     _hasInvalidInput() {
         return this._inputList.some(inputElement => {
             return !inputElement.validity.valid;
         });
     };
 
+    /** Слушатель на ввод в инпут */
     _setEventListeners() {
         this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
         this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
@@ -43,6 +49,7 @@ export class FormValidator {
         });
     };
 
+    /** Включить валидацию */
     enableValidation() {
         this._formElement.addEventListener('submit', (evt) => {
             evt.preventDefault();
@@ -50,6 +57,7 @@ export class FormValidator {
         this._setEventListeners();
     };
 
+    /** Блокировка/разблокировка сабмита */
     toggleButtonState() {
         if (this._hasInvalidInput()) {
             this._buttonElement.classList.add(this._inactiveButtonClass);
@@ -60,7 +68,7 @@ export class FormValidator {
         }
     };
 
-    
+    /** Сбросить валидацию */
     reviewValidity() {
         this._inputList.forEach(inputElement => {
             if (!inputElement.validity.valid) {

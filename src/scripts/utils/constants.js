@@ -32,3 +32,5 @@ export const validationData = {
   inactiveButtonClass: 'form__save-btn_disabled',
   inputErrorClass: 'form__input_type_error',
 }
+
+export const cardContainerSelector = '.cards';

@@ -1,3 +1,5 @@
+/** Карточка */
+
 export class Card {
     constructor (data, templateSelector, openPopupImg) {
         this._data = data;
@@ -5,24 +7,29 @@ export class Card {
         this._openPopupImg = openPopupImg;
     }
 
+    /** Получение элемента карточки */
     _getCardElement() {
         this._cardElement = document.querySelector(this._templateSelector).content.querySelector('.card').cloneNode(true);
 
         return this._cardElement;
     }
 
+    /** Лайк карточки */
     _handleLikeBtn() {
         this._newCard.querySelector('.card__like-btn').classList.toggle('card__like-btn_liked');
     }
 
+    /** Удаление карточки */
     _handleRemoveBtn() {
         this._newCard.remove();
     }
 
+    /** Открытие попапа картинки */
     _handleOpenPopup() {
         this._openPopupImg(this._data)
     }
 
+    /** Слушатели на элементы карточки */
     _setEventListeners() {
         this._newCardLikeBtn.addEventListener('click', () => {
             this._handleLikeBtn();
@@ -35,6 +42,7 @@ export class Card {
         });
     }
 
+    /** Создание новой карточки */
     generateCard() {
         this._newCard = this._getCardElement();
         this._newCardImg = this._newCard.querySelector('.card__img');
