@@ -34,3 +34,4 @@ export const validationData = {
 }
 
 export const cardContainerSelector = '.cards';
+export const popupProfileSelector = '.popup_type_profile';
