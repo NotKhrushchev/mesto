@@ -3,6 +3,7 @@ import { Card } from "./scripts/components/Card.js";
 import { FormValidator } from "./scripts/components/FormValidator.js";
 import { Section } from "./scripts/components/Section.js";
 import { PopupWithImage } from "./scripts/components/PopupWithImage.js";
+import { PopupWithForm } from "./scripts/components/PopupWithForm.js";
 
 
 const profileEditBtn = document.querySelector('.profile__edit-btn');
@@ -24,6 +25,14 @@ profileFormValidation.enableValidation();
 
 placeFormValidation.enableValidation();
 
+const profileFormPopup = new PopupWithForm(popupProfileSelector, (evt) => {
+  evt.preventDefault();
+  profileName.textContent = formInputName.value;
+  profileInterest.textContent = formInputInterest.value;
+  profileFormPopup.close();
+});
+profileFormPopup.setEventListeners();
+
 const openPlaceForm = () => {
   placeFormValidation.reviewValidity();
   openPopup(popupTypePlace);
@@ -31,12 +40,12 @@ const openPlaceForm = () => {
   placeFormValidation.toggleButtonState();
 };
 
-const handleFormProfileSubmit = (evt) => {
-  evt.preventDefault();
-  profileName.textContent = formInputName.value;
-  profileInterest.textContent = formInputInterest.value;
-  closePopup(popupTypeProfile);
-};
+// const handleFormProfileSubmit = (evt) => {
+//   evt.preventDefault();
+//   profileName.textContent = formInputName.value;
+//   profileInterest.textContent = formInputInterest.value;
+//   profileFormPopup.close();
+// };
 
 const handleFormPlaceSubmit = (evt) => {
   evt.preventDefault();
@@ -73,9 +82,9 @@ const prependNewCard = (containerSelector, cardElement) => {
   container.prepend(cardElement);
 };
 
-profileEditBtn.addEventListener('click', () => {});
-
-formProfile.addEventListener('submit', handleFormProfileSubmit);
+profileEditBtn.addEventListener('click', () => {
+  profileFormPopup.open()
+});
 
 placeAddBtn.addEventListener('click', openPlaceForm);
 
