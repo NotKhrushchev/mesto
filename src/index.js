@@ -30,7 +30,11 @@ const placeFormPopup = new PopupWithForm(
   popupPlaceSelector, 
   (evt) => {
     evt.preventDefault();
-    const card = new Card(placeFormPopup.getInputValues(), cardTemplateSelector, popupImg.open);
+    const card = new Card(
+      placeFormPopup.getInputValues(), 
+      cardTemplateSelector, 
+      popupImg.open
+    );
     const cardElement = card.generateCard();
     cardList.setItem(cardElement);
     placeFormPopup.close()
@@ -39,7 +43,10 @@ const placeFormPopup = new PopupWithForm(
 placeFormPopup.setEventListeners();
 
 /** Отображение данных о пользователе */
-const profileInfo = new UserInfo({nameSelector: profileNameSelector, interestSelector: profileInterestSelector});
+const profileInfo = new UserInfo({
+  nameSelector: profileNameSelector, 
+  interestSelector: profileInterestSelector
+});
 
 /** Попап картинки */
 const popupImg = new PopupWithImage(popupImgSelector);
@@ -49,7 +56,11 @@ popupImg.setEventListeners();
 const cardList = new Section({
   items: initialCards,
   renderer: (item) => {
-    const card = new Card(item, cardTemplateSelector, popupImg.open);
+    const card = new Card(
+      item, 
+      cardTemplateSelector,
+      popupImg.open
+    );
     const cardElement = card.generateCard();
     cardList.setItem(cardElement);
   }

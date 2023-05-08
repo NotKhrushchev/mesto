@@ -1,10 +1,10 @@
 /** Карточка */
 
 export class Card {
-    constructor (data, templateSelector, openPopupImg) {
+    constructor (data, templateSelector, handleCardClick) {
         this._data = data;
         this._templateSelector = templateSelector;
-        this._openPopupImg = openPopupImg;
+        this._handleCardClick = handleCardClick;
     }
 
     /** Получение элемента карточки */
@@ -33,7 +33,7 @@ export class Card {
             this._handleRemoveBtn();
         });
         this._newCardImg.addEventListener('click', () => {
-            this._openPopupImg(this._data)
+            this._handleCardClick(this._data)
         });
     }
 
