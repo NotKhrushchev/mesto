@@ -10,18 +10,18 @@ export class PopupWithForm extends Popup {
 
     /** Получение значений инпутов */
     getInputValues() {
-        const inputValues = {};
+        this._inputValues = {};
         this._form.querySelectorAll('.form__input').forEach(input => {
-            inputValues[input.name] = input.value;
+            this._inputValues[input.name] = input.value;
         });
-        return inputValues;
+        return this._inputValues;
     }
 
-    /** Установка данных профиля в инпуты формы */
+    /** Возвращение данных профиля в инпуты формы */
     setInputValues(profileData) {
+        console.log(profileData);
         this._form.querySelectorAll('.form__input').forEach(input => {
-            input.name = profileData.name;
-            input.interest = profileData.interest;
+            input.value = profileData[input.name];
         });
     }
 
@@ -35,8 +35,6 @@ export class PopupWithForm extends Popup {
     setEventListeners() {
         super.setEventListeners();
 
-        this._form.addEventListener('submit', (evt) => {
-            this._submitForm(evt);
-        })
+        this._form.addEventListener('submit', this._submitForm)
     }
 }
