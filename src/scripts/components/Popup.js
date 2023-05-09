@@ -3,6 +3,7 @@
 export class Popup {
     constructor(popupSelector) {
         this._popup = document.querySelector(popupSelector);
+        this._handleEscButton = this._handleEscButton.bind(this);
     }
 
     /** Закрытие попапа по Esc */
@@ -15,14 +16,14 @@ export class Popup {
     /** Открытие попапа */
     open() {
         this._popup.classList.add('popup_opened');
+        document.addEventListener('keydown', this._handleEscButton);
+
     }
 
     /** Закрытие попапа */
     close() {
         this._popup.classList.remove('popup_opened');
-        document.removeEventListener('keydown', () => {
-            this.close();
-        });
+        document.removeEventListener('keydown', this._handleEscButton);
     }
 
     /** Слушатель на элементы попапа */
@@ -35,10 +36,6 @@ export class Popup {
 
         this._popup.querySelector('.popup__close-btn').addEventListener('click', () => {
             this.close();
-        });
-
-        document.addEventListener('keydown', (evt) => {
-            this._handleEscButton(evt);
         });
     }
 }

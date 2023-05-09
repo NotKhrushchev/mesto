@@ -1,5 +1,18 @@
 import "./pages/index.css";
-import { cardContainerSelector, cardTemplateSelector, formPlace, formProfile, initialCards, placeAddBtn, popupImgSelector, popupPlaceSelector, popupProfileSelector, profileEditBtn, profileInterestSelector, profileNameSelector, validationData } from "./scripts/utils/constants.js";
+import { 
+  cardContainerSelector, 
+  cardTemplateSelector, 
+  formPlace, formProfile, 
+  initialCards, 
+  placeAddBtn, 
+  popupImgSelector, 
+  popupPlaceSelector, 
+  popupProfileSelector, 
+  profileEditBtn, 
+  profileInterestSelector, 
+  profileNameSelector, 
+  validationData 
+} from "./scripts/utils/constants.js";
 import { Card } from "./scripts/components/Card.js";
 import { FormValidator } from "./scripts/components/FormValidator.js";
 import { Section } from "./scripts/components/Section.js";
@@ -7,7 +20,17 @@ import { PopupWithImage } from "./scripts/components/PopupWithImage.js";
 import { PopupWithForm } from "./scripts/components/PopupWithForm.js";
 import { UserInfo } from "./scripts/components/UserInfo.js";
 
-console.log('Hello');
+/** Создание готовой карточки */
+const createCard = (item) => {
+  const card = new Card (
+    item,
+    cardTemplateSelector,
+    popupImg.open
+  );
+  const cardElement = card.generateCard();
+  return cardElement;
+};
+
 /** Вадидация формы редактирования профиля */
 const profileFormValidation = new FormValidator(validationData, formProfile);
 profileFormValidation.enableValidation();
@@ -32,13 +55,9 @@ const placeFormPopup = new PopupWithForm(
   popupPlaceSelector, 
   (evt) => {
     evt.preventDefault();
-    const card = new Card(
-      placeFormPopup.getInputValues(), 
-      cardTemplateSelector, 
-      popupImg.open
+    cardList.setItem(
+      createCard(placeFormPopup.getInputValues(), cardTemplateSelector, popupImg.open)
     );
-    const cardElement = card.generateCard();
-    cardList.setItem(cardElement);
     placeFormPopup.close()
   }
 );
@@ -58,13 +77,9 @@ popupImg.setEventListeners();
 const cardList = new Section({
   items: initialCards,
   renderer: (item) => {
-    const card = new Card(
-      item, 
-      cardTemplateSelector,
-      popupImg.open
+    cardList.setItem(
+      createCard(item, cardTemplateSelector, popupImg.open)
     );
-    const cardElement = card.generateCard();
-    cardList.setItem(cardElement);
   }
 }, cardContainerSelector);
 cardList.renderItems();

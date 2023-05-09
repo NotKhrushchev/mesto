@@ -6,12 +6,13 @@ export class PopupWithForm extends Popup {
         super(popupSelector);
         this._submitForm = submitForm;
         this._form = this._popup.querySelector('.form');
+        this._inputList = this._form.querySelectorAll('.form__input');
     }
 
     /** Получение значений инпутов */
     getInputValues() {
         this._inputValues = {};
-        this._form.querySelectorAll('.form__input').forEach(input => {
+        this._inputList.forEach(input => {
             this._inputValues[input.name] = input.value;
         });
         return this._inputValues;
@@ -19,8 +20,7 @@ export class PopupWithForm extends Popup {
 
     /** Возвращение данных профиля в инпуты формы */
     setInputValues(profileData) {
-        console.log(profileData);
-        this._form.querySelectorAll('.form__input').forEach(input => {
+        this._inputList.forEach(input => {
             input.value = profileData[input.name];
         });
     }

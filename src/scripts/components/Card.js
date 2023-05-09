@@ -16,7 +16,7 @@ export class Card {
 
     /** Лайк карточки */
     _handleLikeBtn() {
-        this._newCard.querySelector('.card__like-btn').classList.toggle('card__like-btn_liked');
+        this._newCardLikeBtn.classList.toggle('card__like-btn_liked');
     }
 
     /** Удаление карточки */
