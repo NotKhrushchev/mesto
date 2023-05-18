@@ -20,6 +20,18 @@ import { PopupWithImage } from "./scripts/components/PopupWithImage.js";
 import { PopupWithForm } from "./scripts/components/PopupWithForm.js";
 import { UserInfo } from "./scripts/components/UserInfo.js";
 
+const getProfileInfo = () => {
+  return fetch('https://nomoreparties.co/v1/cohort-66/users/me', {
+    headers: {
+      authorization: '7d1c3a82-a021-491f-b430-9bbe901628a4'
+    }
+  })
+  .then(res => res.ok ? res.json() : Promise.reject())
+  .then(res => console.log(res))
+}
+
+getProfileInfo()
+
 /** Создание готовой карточки */
 const createCard = (item) => {
   const card = new Card (
