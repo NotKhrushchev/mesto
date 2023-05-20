@@ -9,6 +9,18 @@ export class Api {
     getProfileInfo() {
         return fetch(`${this._baseUrl}/users/me`, {
             headers: this._headers
+        });
+    }
+
+    /** Запрос на изменение информации профиля */
+    setProfileInfo(profileData) {
+        return fetch(`${this._baseUrl}/users/me`, {
+            method: 'PATCH',
+            headers: this._headers,
+            body: JSON.stringify({
+                name: profileData.name,
+                about: profileData.interest
+            })
         })
     }
 }

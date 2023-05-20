@@ -34,7 +34,10 @@ const api = new Api({
 /** Загрузка данных профиля */
 api.getProfileInfo()
   .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-  .then(res => profileInfo.setUserInfo(res));
+  .then(res => profileInfo.setUserInfo(res))
+  .catch((err) => {
+    console.log(err);
+  });
 
 /** Создание готовой карточки */
 const createCard = (item) => {
@@ -57,11 +60,17 @@ placeFormValidation.enableValidation();
 
 /** Форма редактирования профиля */
 const profileFormPopup = new PopupWithForm(
-  popupProfileSelector, 
-  (evt) => {
-  evt.preventDefault();
-  profileInfo.setUserInfo(profileFormPopup.getInputValues())
-  profileFormPopup.close();
+  popupProfileSelector,
+  () => {
+    api.setProfileInfo(profileFormPopup.getInputValues())
+      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(res => 
+        profileInfo.setUserInfo(res),
+        profileFormPopup.setSubmitBtnState(true))
+      .catch((err) => {
+        console.log(err);
+      });
+    profileFormPopup.close();
   }
 );
 profileFormPopup.setEventListeners();
@@ -105,6 +114,7 @@ cardList.renderItems();
 profileEditBtn.addEventListener('click', () => {
   profileFormValidation.reviewValidity();
   profileFormPopup.setInputValues(profileInfo.getUserInfo());
+  profileFormPopup.setSubmitBtnState(false)
   profileFormValidation.toggleButtonState();
   profileFormPopup.open();
 });
