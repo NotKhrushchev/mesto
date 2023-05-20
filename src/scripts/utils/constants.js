@@ -44,3 +44,4 @@ export const popupPlaceSelector = '.popup_type_place';
 export const cardTemplateSelector = '.card-template';
 export const profileNameSelector = '.profile__name';
 export const profileInterestSelector = '.profile__interest';
+export const profileAvatarSelector = '.profile__avatar'

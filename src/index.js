@@ -10,8 +10,9 @@ import {
   popupProfileSelector, 
   profileEditBtn, 
   profileInterestSelector, 
-  profileNameSelector, 
-  validationData 
+  profileNameSelector,
+  profileAvatarSelector,
+  validationData
 } from "./scripts/utils/constants.js";
 import { Card } from "./scripts/components/Card.js";
 import { FormValidator } from "./scripts/components/FormValidator.js";
@@ -81,7 +82,8 @@ placeFormPopup.setEventListeners();
 /** Отображение данных о пользователе */
 const profileInfo = new UserInfo({
   nameSelector: profileNameSelector, 
-  interestSelector: profileInterestSelector
+  interestSelector: profileInterestSelector,
+  avatarSelector: profileAvatarSelector
 });
 
 /** Попап картинки */
