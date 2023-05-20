@@ -17,6 +17,6 @@ export class UserInfo {
     /** Возвращение информации о пользователе */
     setUserInfo(profileData) {
         this._name.textContent = profileData.name;
-        this._interest.textContent = profileData.interest;
+        this._interest.textContent = profileData.about;
     }
 }

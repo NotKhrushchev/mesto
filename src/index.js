@@ -19,18 +19,21 @@ import { Section } from "./scripts/components/Section.js";
 import { PopupWithImage } from "./scripts/components/PopupWithImage.js";
 import { PopupWithForm } from "./scripts/components/PopupWithForm.js";
 import { UserInfo } from "./scripts/components/UserInfo.js";
+import { Api } from "./scripts/components/Api";
 
-const getProfileInfo = () => {
-  return fetch('https://nomoreparties.co/v1/cohort-66/users/me', {
-    headers: {
-      authorization: '7d1c3a82-a021-491f-b430-9bbe901628a4'
-    }
-  })
-  .then(res => res.ok ? res.json() : Promise.reject())
-  .then(res => console.log(res))
-}
+/** Универсальная форма обращения к серверу */
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-66',
+  headers: {
+    authorization: '7d1c3a82-a021-491f-b430-9bbe901628a4',
+    'Content-Type': 'application/json'
+  }
+})
 
-getProfileInfo()
+/** Загрузка данных профиля */
+api.getProfileInfo()
+  .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+  .then(res => profileInfo.setUserInfo(res));
 
 /** Создание готовой карточки */
 const createCard = (item) => {
