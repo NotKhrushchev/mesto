@@ -1,8 +1,9 @@
 /** Карточка */
 
 export class Card {
-    constructor (data, templateSelector, handleCardClick) {
+    constructor (data, myId, templateSelector, handleCardClick) {
         this._data = data;
+        this._myId = myId
         this._templateSelector = templateSelector;
         this._handleCardClick = handleCardClick;
     }
@@ -39,6 +40,8 @@ export class Card {
 
     /** Создание новой карточки */
     generateCard() {
+        console.log(this._myId)
+        console.log(this._data._id)
         this._newCard = this._getCardElement();
         this._newCardImg = this._newCard.querySelector('.card__img');
         this._newCardDescription = this._newCard.querySelector('.card__desc');
@@ -50,6 +53,9 @@ export class Card {
         this._newCardImg.src = this._data.link;
         this._newCardImg.alt = `Фотография места: ${this._data.name}`;
         this._newCardDescription.textContent = this._data.name;
+        if(this._data.owner._id !== this._myId) {
+            this._newCardRemoveBtn.remove()
+        }
         
         return this._newCard;
     }

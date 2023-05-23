@@ -3,7 +3,6 @@ import {
   cardContainerSelector, 
   cardTemplateSelector, 
   formPlace, formProfile, 
-  initialCards, 
   placeAddBtn, 
   popupImgSelector, 
   popupPlaceSelector, 
@@ -22,6 +21,9 @@ import { PopupWithForm } from "./scripts/components/PopupWithForm.js";
 import { UserInfo } from "./scripts/components/UserInfo.js";
 import { Api } from "./scripts/components/Api";
 
+/** Хранилище личного Id*/
+let myId = ''
+
 /** Универсальная форма обращения к серверу */
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-66',
@@ -34,15 +36,17 @@ const api = new Api({
 /** Загрузка данных профиля */
 api.getProfileInfo()
   .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-  .then(res => profileInfo.setUserInfo(res))
-  .catch(err => {
-    console.log(err);
-  });
+  .then(res => {
+    profileInfo.setUserInfo(res)
+    myId = res._id
+  })
+  .catch(err => console.log(err));
 
 /** Создание готовой карточки */
 const createCard = (item) => {
   const card = new Card (
     item,
+    myId,
     cardTemplateSelector,
     popupImg.open
   );
@@ -66,11 +70,11 @@ const profileFormPopup = new PopupWithForm(
       .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
       .then(res => 
         profileInfo.setUserInfo(res),
-        profileFormPopup.setSubmitBtnState(true)
       )
       .catch(err => {
         console.log(err);
-      });
+      })
+      .finally(profileFormPopup.setSubmitBtnState(true))
     profileFormPopup.close();
   }
 );
@@ -82,14 +86,16 @@ const placeFormPopup = new PopupWithForm(
   () => {
     api.postNewCard(placeFormPopup.getInputValues())
     .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-    .then(res =>
+    .then(res => {
       cardList.setItem(
         createCard(res, cardTemplateSelector, popupImg.open)
       )
+    }
     )
     .catch(err => {
       console.log(err);
     })
+    .finally(placeFormPopup.setSubmitBtnState(true))
     placeFormPopup.close()
   }
 );
@@ -131,5 +137,6 @@ profileEditBtn.addEventListener('click', () => {
 placeAddBtn.addEventListener('click', () => {
   placeFormValidation.toggleButtonState();
   placeFormValidation.reviewValidity();
+  placeFormPopup.setSubmitBtnState(false)
   placeFormPopup.open();
 });
