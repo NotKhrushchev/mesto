@@ -24,12 +24,14 @@ export class Api {
         })
     }
 
+    /** Запрос на загрузку всех карточек */
     getInitialCards() {
         return fetch(`${this._baseUrl}/cards`, {
             headers: this._headers
         })
     }
 
+    /** Запрос на публикацию карточки */
     publishNewCard(cardData) {
         return fetch(`${this._baseUrl}/cards`, {
             method: 'POST',
