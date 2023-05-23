@@ -80,7 +80,7 @@ profileFormPopup.setEventListeners();
 const placeFormPopup = new PopupWithForm(
   popupPlaceSelector, 
   () => {
-    api.publishNewCard(placeFormPopup.getInputValues())
+    api.postNewCard(placeFormPopup.getInputValues())
     .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
     .then(res =>
       cardList.setItem(
