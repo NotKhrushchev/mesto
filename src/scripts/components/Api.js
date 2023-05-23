@@ -32,7 +32,7 @@ export class Api {
     }
 
     /** Запрос на публикацию карточки */
-    publishNewCard(cardData) {
+    postNewCard(cardData) {
         return fetch(`${this._baseUrl}/cards`, {
             method: 'POST',
             headers: this._headers,
