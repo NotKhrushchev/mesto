@@ -47,8 +47,8 @@ export class Card {
         
         this._setEventListeners();
 
-        this._newCardImg.setAttribute('src', this._data.link);
-        this._newCardImg.setAttribute('alt', `Фотография места: ${this._data.name}`);
+        this._newCardImg.src = this._data.link;
+        this._newCardImg.alt = `Фотография места: ${this._data.name}`;
         this._newCardDescription.textContent = this._data.name;
         
         return this._newCard;

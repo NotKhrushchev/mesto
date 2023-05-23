@@ -11,8 +11,8 @@ export class PopupWithImage extends Popup {
     /** Открытие попапа картинки */
     open = (cardData) => {
         super.open();
-        this._imageForPopup.setAttribute('src', cardData.link);
-        this._imageForPopup.setAttribute('alt', `Фото места: ${cardData.name}`);
+        this._imageForPopup.src = cardData.link;
+        this._imageForPopup.alt = `Фото места: ${cardData.name}`;
         this._popupCaption.textContent = cardData.name;
     }
 }

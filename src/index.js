@@ -100,15 +100,16 @@ const popupImg = new PopupWithImage(popupImgSelector);
 popupImg.setEventListeners();
 
 /** Отрисовка начальных карточек */
-const cardList = new Section({
-  items: initialCards,
-  renderer: (item) => {
+const cardList = new Section(
+  (item) => {
     cardList.setItem(
       createCard(item, cardTemplateSelector, popupImg.open)
     );
-  }
-}, cardContainerSelector);
-cardList.renderItems();
+  },
+  cardContainerSelector);
+api.getInitialCards()
+.then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+.then(res => cardList.renderItems(res));
 
 /** Слушатель на кнопку редактроования профиля */
 profileEditBtn.addEventListener('click', () => {
