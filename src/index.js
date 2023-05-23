@@ -35,7 +35,7 @@ const api = new Api({
 api.getProfileInfo()
   .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
   .then(res => profileInfo.setUserInfo(res))
-  .catch((err) => {
+  .catch(err => {
     console.log(err);
   });
 
@@ -66,8 +66,9 @@ const profileFormPopup = new PopupWithForm(
       .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
       .then(res => 
         profileInfo.setUserInfo(res),
-        profileFormPopup.setSubmitBtnState(true))
-      .catch((err) => {
+        profileFormPopup.setSubmitBtnState(true)
+      )
+      .catch(err => {
         console.log(err);
       });
     profileFormPopup.close();
@@ -78,17 +79,23 @@ profileFormPopup.setEventListeners();
 /** Форма добавления карточки */
 const placeFormPopup = new PopupWithForm(
   popupPlaceSelector, 
-  (evt) => {
-    evt.preventDefault();
-    cardList.setItem(
-      createCard(placeFormPopup.getInputValues(), cardTemplateSelector, popupImg.open)
-    );
+  () => {
+    api.publishNewCard(placeFormPopup.getInputValues())
+    .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+    .then(res =>
+      cardList.setItem(
+        createCard(res, cardTemplateSelector, popupImg.open)
+      )
+    )
+    .catch(err => {
+      console.log(err);
+    })
     placeFormPopup.close()
   }
 );
 placeFormPopup.setEventListeners();
 
-/** Отображение данных о пользователе */
+/** Данные пользователя */
 const profileInfo = new UserInfo({
   nameSelector: profileNameSelector, 
   interestSelector: profileInterestSelector,
@@ -109,7 +116,7 @@ const cardList = new Section(
   cardContainerSelector);
 api.getInitialCards()
 .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-.then(res => cardList.renderItems(res));
+.then(res => cardList.renderItems(res.reverse()));
 
 /** Слушатель на кнопку редактроования профиля */
 profileEditBtn.addEventListener('click', () => {

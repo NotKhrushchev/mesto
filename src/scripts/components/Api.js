@@ -29,4 +29,15 @@ export class Api {
             headers: this._headers
         })
     }
+
+    publishNewCard(cardData) {
+        return fetch(`${this._baseUrl}/cards`, {
+            method: 'POST',
+            headers: this._headers,
+            body: JSON.stringify({
+                name: cardData.name,
+                link: cardData.link
+            })
+        })
+    }
 }
