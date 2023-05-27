@@ -16,7 +16,7 @@ export class PopupWithRemoveCardForm extends Popup {
         super.setEventListeners();
         this._form.addEventListener('submit', (evt) => {
             evt.preventDefault();
-            this._submitFunction(this._card, this._cardId)
+            this._submitFunction(this._card)
         })
     }
 }
