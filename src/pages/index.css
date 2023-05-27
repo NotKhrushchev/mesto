@@ -40,7 +40,7 @@
 @import url(../blocks/form/__input/_type/form__input_type_error.css);
 @import url(../blocks/form/__save-btn/form__save-btn.css);
 @import url(../blocks/form/__save-btn/_disabled/form__save-btn_disabled.css);
-@import url(../blocks/form/__header/_type/_remove-card/form__header_type_remove-card.css);
+@import url(../blocks/form/__header/_modified/form__header_modified.css);
 @import url(../blocks/popup/__img-content/popup__img-content.css);
 @import url(../blocks/popup/__img/popup__img.css);
 @import url(../blocks/popup/__caption/popup__caption.css);
