@@ -14,6 +14,7 @@ export const cardContainerSelector = '.cards';
 export const popupProfileSelector = '.popup_type_profile';
 export const popupImgSelector = '.popup_type_img';
 export const popupPlaceSelector = '.popup_type_place';
+export const popupRemoveCardSelector = '.popup_type_remove-card'
 export const cardTemplateSelector = '.card-template';
 export const profileNameSelector = '.profile__name';
 export const profileInterestSelector = '.profile__interest';

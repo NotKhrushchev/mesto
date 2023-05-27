@@ -11,7 +11,8 @@ import {
   profileInterestSelector, 
   profileNameSelector,
   profileAvatarSelector,
-  validationData
+  validationData,
+  popupRemoveCardSelector
 } from "./scripts/utils/constants.js";
 import { Card } from "./scripts/components/Card.js";
 import { FormValidator } from "./scripts/components/FormValidator.js";
@@ -20,6 +21,7 @@ import { PopupWithImage } from "./scripts/components/PopupWithImage.js";
 import { PopupWithForm } from "./scripts/components/PopupWithForm.js";
 import { UserInfo } from "./scripts/components/UserInfo.js";
 import { Api } from "./scripts/components/Api";
+import { PopupWithRemoveCardForm } from "./scripts/components/PopupWithRemoveCardForm";
 
 /** Хранилище личного Id*/
 let myId = ''
@@ -48,6 +50,7 @@ const createCard = (item) => {
     item,
     myId,
     cardTemplateSelector,
+    removeCardPopup.open,
     popupImg.open
   );
   const cardElement = card.generateCard();
@@ -70,12 +73,12 @@ const profileFormPopup = new PopupWithForm(
       .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
       .then(res => 
         profileInfo.setUserInfo(res),
+        profileFormPopup.close()
       )
       .catch(err => {
         console.log(err);
       })
       .finally(profileFormPopup.setSubmitBtnState(true))
-    profileFormPopup.close();
   }
 );
 profileFormPopup.setEventListeners();
@@ -90,18 +93,36 @@ const placeFormPopup = new PopupWithForm(
       cardList.setItem(
         createCard(res, cardTemplateSelector, popupImg.open)
       )
+      placeFormPopup.close()
     }
     )
     .catch(err => {
       console.log(err);
     })
     .finally(placeFormPopup.setSubmitBtnState(true))
-    placeFormPopup.close()
   }
 );
 placeFormPopup.setEventListeners();
 
-/** Данные пользователя */
+const removeCardPopup = new PopupWithRemoveCardForm(
+  popupRemoveCardSelector,
+  (card) => {
+    api.removeCard(card._data._id)
+    .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+    .then(() => 
+      card.removeCard(),
+      removeCardPopup.close()
+    )
+    .catch(err => {
+      console.log(err);
+    })
+    .finally(placeFormPopup.setSubmitBtnState(true))
+  }
+)
+
+removeCardPopup.setEventListeners()
+
+/** Инициализация данных пользователя */
 const profileInfo = new UserInfo({
   nameSelector: profileNameSelector, 
   interestSelector: profileInterestSelector,

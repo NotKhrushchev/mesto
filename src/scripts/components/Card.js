@@ -1,10 +1,11 @@
 /** Карточка */
 
 export class Card {
-    constructor (data, myId, templateSelector, handleCardClick) {
+    constructor (data, myId, templateSelector, openRemoveCardPopup, handleCardClick) {
         this._data = data;
-        this._myId = myId
+        this._myId = myId;
         this._templateSelector = templateSelector;
+        this._openRemoveCardPopup = openRemoveCardPopup;
         this._handleCardClick = handleCardClick;
     }
 
@@ -20,9 +21,9 @@ export class Card {
         this._newCardLikeBtn.classList.toggle('card__like-btn_liked');
     }
 
-    /** Удаление карточки */
+    /** Открытие попапа удаления карточки */
     _handleRemoveBtn() {
-        this._newCard.remove();
+        this._openRemoveCardPopup(this, this._data._id);
     }
 
     /** Слушатели на элементы карточки */
@@ -40,8 +41,6 @@ export class Card {
 
     /** Создание новой карточки */
     generateCard() {
-        console.log(this._myId)
-        console.log(this._data._id)
         this._newCard = this._getCardElement();
         this._newCardImg = this._newCard.querySelector('.card__img');
         this._newCardDescription = this._newCard.querySelector('.card__desc');
@@ -58,5 +57,10 @@ export class Card {
         }
         
         return this._newCard;
+    }
+
+    /** Удалить карточку */
+    removeCard() {
+        this._cardElement.remove()
     }
 }
