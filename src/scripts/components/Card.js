@@ -1,12 +1,13 @@
 /** Карточка */
 
 export class Card {
-    constructor (data, myId, templateSelector, openRemoveCardPopup, handleCardClick) {
+    constructor (data, myId, templateSelector, openRemoveCardPopup, handleCardClick, handleLikeClick) {
         this._data = data;
         this._myId = myId;
         this._templateSelector = templateSelector;
         this._openRemoveCardPopup = openRemoveCardPopup;
         this._handleCardClick = handleCardClick;
+        this._handleLikeClick = handleLikeClick;
     }
 
     /** Получение элемента карточки */
@@ -18,7 +19,20 @@ export class Card {
 
     /** Лайк карточки */
     _handleLikeBtn() {
-        this._newCardLikeBtn.classList.toggle('card__like-btn_liked');
+        this._handleLikeClick(this._newCardLikeBtn, this._data._id)
+        // this._newCardLikeBtn.classList.toggle('card__like-btn_liked');
+    }
+
+    /** Фиксация количества лайков */
+    _likeCounter() { 
+        this._counter = this._cardElement.querySelector('.card__like-counter')
+        this._data.likes.forEach(like => {
+            if (like._id === this._myId) {
+                this._newCardLikeBtn.classList.add('card__like-btn_liked');
+                return
+            }
+        })
+        this._counter.textContent = this._data.likes.length
     }
 
     /** Открытие попапа удаления карточки */
@@ -47,6 +61,7 @@ export class Card {
         this._newCardLikeBtn = this._newCard.querySelector('.card__like-btn');
         this._newCardRemoveBtn = this._newCard.querySelector('.card__remove-btn');
         
+        this._likeCounter()
         this._setEventListeners();
 
         this._newCardImg.src = this._data.link;
@@ -62,5 +77,11 @@ export class Card {
     /** Удалить карточку */
     removeCard() {
         this._cardElement.remove()
+    }
+
+    toggleLikeBtn(likes) {
+        this._newCardLikeBtn.classList.toggle('card__like-btn_liked');
+        console.log(likes.length)
+        this._counter.textContent = likes.length
     }
 }

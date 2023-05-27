@@ -51,7 +51,24 @@ const createCard = (item) => {
     myId,
     cardTemplateSelector,
     removeCardPopup.open,
-    popupImg.open
+    popupImg.open,
+    (likeBtn, cardId) => {
+      if (!likeBtn.classList.contains('card__like-btn_liked')) {
+        api.setCardLike(cardId)
+        .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+        .then(res => {
+          card.toggleLikeBtn(res.likes);
+        })
+        .catch(err => console.log(err));
+      } else {
+        api.removeCardLike(cardId)
+        .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+        .then(res => {
+          card.toggleLikeBtn(res.likes);
+        })
+        .catch(err => console.log(err));
+      }
+    }
   );
   const cardElement = card.generateCard();
   return cardElement;

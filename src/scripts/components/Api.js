@@ -50,4 +50,20 @@ export class Api {
             headers: this._headers
         })
     }
+
+    /** Запрос на установку лайка у карточки */
+    setCardLike(cardId) {
+        return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+            method: 'PUT',
+            headers: this._headers
+        })
+    }
+
+    /** Запрос на снятие лайка у карточки */
+    removeCardLike(cardId) {
+        return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+            method: 'DELETE',
+            headers: this._headers
+        })
+    }
 }
