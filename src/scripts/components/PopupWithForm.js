@@ -21,7 +21,9 @@ export class PopupWithForm extends Popup {
 
     /** Обновление состояния кнопки сабмита */
     setSubmitBtnState(active) {
-        if (this._form.classList.contains('form_type_profile' && 'form_type_set-avatar')) {
+        if (this._form.classList.contains('form_type_profile')) {
+            active === true ? this._submitBtn.textContent = 'Сохранить...' : this._submitBtn.textContent = 'Сохранить'
+        } else if (this._form.classList.contains('form_type_set-avatar')) {
             active === true ? this._submitBtn.textContent = 'Сохранить...' : this._submitBtn.textContent = 'Сохранить'
         } else {
             active === true ? this._submitBtn.textContent = 'Создать...' : this._submitBtn.textContent = 'Создать'
