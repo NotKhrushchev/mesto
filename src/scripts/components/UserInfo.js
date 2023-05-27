@@ -19,6 +19,6 @@ export class UserInfo {
     setUserInfo(profileData) {
         this._name.textContent = profileData.name;
         this._interest.textContent = profileData.about;
-        this._avatar.src = profileData.avatar;
+        this._avatar.style.backgroundImage = `url(${profileData.avatar}`;
     }
 }

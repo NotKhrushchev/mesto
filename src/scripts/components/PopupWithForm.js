@@ -21,7 +21,11 @@ export class PopupWithForm extends Popup {
 
     /** Обновление состояния кнопки сабмита */
     setSubmitBtnState(active) {
-        active === true ? this._submitBtn.textContent = 'Сохранить...' : this._submitBtn.textContent = 'Сохранить'
+        if (this._form.classList.contains('form_type_profile' && 'form_type_set-avatar')) {
+            active === true ? this._submitBtn.textContent = 'Сохранить...' : this._submitBtn.textContent = 'Сохранить'
+        } else {
+            active === true ? this._submitBtn.textContent = 'Создать...' : this._submitBtn.textContent = 'Создать'
+        }
     }
 
     /** Возвращение данных профиля в инпуты формы */
@@ -40,7 +44,6 @@ export class PopupWithForm extends Popup {
     /** Сабмит формы */
     setEventListeners() {
         super.setEventListeners();
-
         this._form.addEventListener('submit', this._submitForm)
     }
 }

@@ -7,12 +7,15 @@ import {
   popupImgSelector, 
   popupPlaceSelector, 
   popupProfileSelector, 
-  profileEditBtn, 
+  profileEditBtn,
+  setAvatarBtn,
   profileInterestSelector, 
   profileNameSelector,
   profileAvatarSelector,
   validationData,
-  popupRemoveCardSelector
+  popupRemoveCardSelector,
+  popupSetAvatarSelector,
+  formSetAvatar
 } from "./scripts/utils/constants.js";
 import { Card } from "./scripts/components/Card.js";
 import { FormValidator } from "./scripts/components/FormValidator.js";
@@ -51,6 +54,9 @@ const createCard = (item) => {
     myId,
     cardTemplateSelector,
     removeCardPopup.open,
+    () => {
+      removeCardPopup.setSubmitBtnState(false)
+    },
     popupImg.open,
     (likeBtn, cardId) => {
       if (!likeBtn.classList.contains('card__like-btn_liked')) {
@@ -81,6 +87,10 @@ profileFormValidation.enableValidation();
 /** Вадидация формы создания карточки */
 const placeFormValidation = new FormValidator(validationData, formPlace);
 placeFormValidation.enableValidation();
+
+/** Валидация формы обновления аватара */
+const setAvatarFormValidation = new FormValidator(validationData, formSetAvatar);
+setAvatarFormValidation.enableValidation();
 
 /** Форма редактирования профиля */
 const profileFormPopup = new PopupWithForm(
@@ -121,6 +131,7 @@ const placeFormPopup = new PopupWithForm(
 );
 placeFormPopup.setEventListeners();
 
+/** Попап удаления карточки */
 const removeCardPopup = new PopupWithRemoveCardForm(
   popupRemoveCardSelector,
   (card) => {
@@ -133,11 +144,28 @@ const removeCardPopup = new PopupWithRemoveCardForm(
     .catch(err => {
       console.log(err);
     })
-    .finally(placeFormPopup.setSubmitBtnState(true))
+    .finally(removeCardPopup.setSubmitBtnState(true))
   }
 )
+removeCardPopup.setEventListeners();
 
-removeCardPopup.setEventListeners()
+/** Попап изменения аватара */
+const setAvatarPopup = new PopupWithForm(
+  popupSetAvatarSelector,
+  () => {
+    api.setAvatar(setAvatarPopup.getInputValues().link)
+    .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+    .then(res => 
+      profileInfo.setUserInfo(res),
+      setAvatarPopup.close()
+    )
+    .catch(err => {
+      console.log(err);
+    })
+    .finally(setAvatarPopup.setSubmitBtnState(true))
+  }
+)
+setAvatarPopup.setEventListeners()
 
 /** Инициализация данных пользователя */
 const profileInfo = new UserInfo({
@@ -150,7 +178,7 @@ const profileInfo = new UserInfo({
 const popupImg = new PopupWithImage(popupImgSelector);
 popupImg.setEventListeners();
 
-/** Отрисовка начальных карточек */
+/** Отрисовка карточек */
 const cardList = new Section(
   (item) => {
     cardList.setItem(
@@ -175,6 +203,14 @@ profileEditBtn.addEventListener('click', () => {
 placeAddBtn.addEventListener('click', () => {
   placeFormValidation.toggleButtonState();
   placeFormValidation.reviewValidity();
-  placeFormPopup.setSubmitBtnState(false)
+  placeFormPopup.setSubmitBtnState(false);
   placeFormPopup.open();
 });
+
+/** Слушатель на кнопку изменения аватара профиля */
+setAvatarBtn.addEventListener('click', () => {
+  setAvatarFormValidation.toggleButtonState();
+  setAvatarFormValidation.reviewValidity();
+  setAvatarPopup.setSubmitBtnState(false);
+  setAvatarPopup.open();
+})
