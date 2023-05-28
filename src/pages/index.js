@@ -1,4 +1,4 @@
-import "./pages/index.css";
+import "./index.css";
 import { 
   cardContainerSelector, 
   cardTemplateSelector, 
@@ -16,15 +16,15 @@ import {
   popupRemoveCardSelector,
   popupSetAvatarSelector,
   formSetAvatar
-} from "./scripts/utils/constants.js";
-import { Card } from "./scripts/components/Card.js";
-import { FormValidator } from "./scripts/components/FormValidator.js";
-import { Section } from "./scripts/components/Section.js";
-import { PopupWithImage } from "./scripts/components/PopupWithImage.js";
-import { PopupWithForm } from "./scripts/components/PopupWithForm.js";
-import { UserInfo } from "./scripts/components/UserInfo.js";
-import { Api } from "./scripts/components/Api";
-import { PopupWithRemoveCardForm } from "./scripts/components/PopupWithRemoveCardForm";
+} from "../scripts/utils/constants.js";
+import { Card } from "../scripts/components/Card.js";
+import { FormValidator } from "../scripts/components/FormValidator.js";
+import { Section } from "../scripts/components/Section.js";
+import { PopupWithImage } from "../scripts/components/PopupWithImage.js";
+import { PopupWithForm } from "../scripts/components/PopupWithForm.js";
+import { UserInfo } from "../scripts/components/UserInfo.js";
+import { Api } from "../scripts/components/Api";
+import { PopupWithConfirmation } from "../scripts/components/PopupWithConfirmation";
 
 /** Хранилище личного Id*/
 let myId = ''
@@ -40,7 +40,6 @@ const api = new Api({
 
 /** Загрузка данных профиля */
 api.getProfileInfo()
-  .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
   .then(res => {
     profileInfo.setUserInfo(res)
     myId = res._id
@@ -58,17 +57,15 @@ const createCard = (item) => {
       removeCardPopup.setSubmitBtnState(false)
     },
     popupImg.open,
-    (likeBtn, cardId) => {
-      if (!likeBtn.classList.contains('card__like-btn_liked')) {
+    (cardId) => {
+      if (card.checkLikeStatus()) {
         api.setCardLike(cardId)
-        .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
         .then(res => {
           card.toggleLikeBtn(res.likes);
         })
         .catch(err => console.log(err));
       } else {
         api.removeCardLike(cardId)
-        .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
         .then(res => {
           card.toggleLikeBtn(res.likes);
         })
@@ -97,12 +94,14 @@ const profileFormPopup = new PopupWithForm(
   popupProfileSelector,
   () => {
     api.setProfileInfo(profileFormPopup.getInputValues())
-      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-      .then(res => 
-        profileInfo.setUserInfo(res),
+      .then(res => {
+        profileInfo.setUserInfo(res)
+        profileFormPopup.setSubmitBtnState(false)
         profileFormPopup.close()
+      }
       )
       .catch(err => {
+        setAvatarPopup.setSubmitBtnState(false)
         console.log(err);
       })
       .finally(profileFormPopup.setSubmitBtnState(true))
@@ -115,15 +114,16 @@ const placeFormPopup = new PopupWithForm(
   popupPlaceSelector, 
   () => {
     api.postNewCard(placeFormPopup.getInputValues())
-    .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
     .then(res => {
       cardList.setItem(
         createCard(res, cardTemplateSelector, popupImg.open)
       )
+      placeFormPopup.setSubmitBtnState(false);
       placeFormPopup.close()
     }
     )
     .catch(err => {
+      setAvatarPopup.setSubmitBtnState(false)
       console.log(err);
     })
     .finally(placeFormPopup.setSubmitBtnState(true))
@@ -132,16 +132,16 @@ const placeFormPopup = new PopupWithForm(
 placeFormPopup.setEventListeners();
 
 /** Попап удаления карточки */
-const removeCardPopup = new PopupWithRemoveCardForm(
+const removeCardPopup = new PopupWithConfirmation(
   popupRemoveCardSelector,
-  (card) => {
-    api.removeCard(card._data._id)
-    .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+  (cardId) => {
+    api.removeCard(cardId)
     .then(() => 
       card.removeCard(),
       removeCardPopup.close()
     )
     .catch(err => {
+      setAvatarPopup.setSubmitBtnState(false)
       console.log(err);
     })
     .finally(removeCardPopup.setSubmitBtnState(true))
@@ -154,12 +154,14 @@ const setAvatarPopup = new PopupWithForm(
   popupSetAvatarSelector,
   () => {
     api.setAvatar(setAvatarPopup.getInputValues().link)
-    .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-    .then(res => 
-      profileInfo.setUserInfo(res),
+    .then(res => {
+      profileInfo.setUserInfo(res)
+      setAvatarPopup.setSubmitBtnState(false)
       setAvatarPopup.close()
+    }
     )
     .catch(err => {
+      setAvatarPopup.setSubmitBtnState(false)
       console.log(err);
     })
     .finally(setAvatarPopup.setSubmitBtnState(true))
@@ -186,15 +188,11 @@ const cardList = new Section(
     );
   },
   cardContainerSelector);
-api.getInitialCards()
-.then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-.then(res => cardList.renderItems(res.reverse()));
 
 /** Слушатель на кнопку редактроования профиля */
 profileEditBtn.addEventListener('click', () => {
   profileFormValidation.reviewValidity();
   profileFormPopup.setInputValues(profileInfo.getUserInfo());
-  profileFormPopup.setSubmitBtnState(false)
   profileFormValidation.toggleButtonState();
   profileFormPopup.open();
 });
@@ -203,7 +201,6 @@ profileEditBtn.addEventListener('click', () => {
 placeAddBtn.addEventListener('click', () => {
   placeFormValidation.toggleButtonState();
   placeFormValidation.reviewValidity();
-  placeFormPopup.setSubmitBtnState(false);
   placeFormPopup.open();
 });
 
@@ -211,6 +208,15 @@ placeAddBtn.addEventListener('click', () => {
 setAvatarBtn.addEventListener('click', () => {
   setAvatarFormValidation.toggleButtonState();
   setAvatarFormValidation.reviewValidity();
-  setAvatarPopup.setSubmitBtnState(false);
   setAvatarPopup.open();
 })
+
+Promise.all([api.getProfileInfo(), api.getInitialCards()])
+.then(([info, initialCards]) => {
+  cardList.renderItems(initialCards.reverse())
+  profileInfo.setUserInfo(info)
+  myId = info._id
+})
+.catch((err)=>{
+  console.log(err);
+}) 

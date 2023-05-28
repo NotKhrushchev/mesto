@@ -5,11 +5,19 @@ export class Api {
         this._headers = options.headers
     }
 
+    _checkAnswer(res) {
+        if (res.ok) {
+            return res.json()
+        }
+        return Promise.reject(`Ошибка: ${res.status}`)
+    }
+
     /** Запрос на получение информации профиля */
     getProfileInfo() {
         return fetch(`${this._baseUrl}/users/me`, {
             headers: this._headers
-        });
+        })
+        .then(res => this._checkAnswer(res))
     }
 
     /** Запрос на изменение информации профиля */
@@ -22,6 +30,7 @@ export class Api {
                 about: profileData.interest
             })
         })
+        .then(res => this._checkAnswer(res))
     }
 
     /** Запрос на загрузку всех карточек */
@@ -29,6 +38,7 @@ export class Api {
         return fetch(`${this._baseUrl}/cards`, {
             headers: this._headers
         })
+        .then(res => this._checkAnswer(res))
     }
 
     /** Запрос на публикацию карточки */
@@ -41,6 +51,7 @@ export class Api {
                 link: cardData.link
             })
         })
+        .then(res => this._checkAnswer(res))
     }
 
     /** Запрос на удаление карточки */
@@ -49,6 +60,7 @@ export class Api {
             method: 'DELETE',
             headers: this._headers
         })
+        .then(res => this._checkAnswer(res))
     }
 
     /** Запрос на установку лайка у карточки */
@@ -57,6 +69,7 @@ export class Api {
             method: 'PUT',
             headers: this._headers
         })
+        .then(res => this._checkAnswer(res))
     }
 
     /** Запрос на снятие лайка у карточки */
@@ -65,6 +78,7 @@ export class Api {
             method: 'DELETE',
             headers: this._headers
         })
+        .then(res => this._checkAnswer(res))
     }
 
     /** Запрос на изменение аватара */
@@ -76,5 +90,6 @@ export class Api {
                 avatar: avatarLink
             })
         })
+        .then(res => this._checkAnswer(res))
     }
 }

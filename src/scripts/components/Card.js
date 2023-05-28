@@ -3,6 +3,7 @@
 export class Card {
     constructor (data, myId, templateSelector, openRemoveCardPopup, setSubmitButtonState, handleCardClick, handleLikeClick) {
         this._data = data;
+        this._cardId = this._data._id
         this._myId = myId;
         this._templateSelector = templateSelector;
         this._openRemoveCardPopup = openRemoveCardPopup;
@@ -20,25 +21,21 @@ export class Card {
 
     /** Лайк карточки */
     _handleLikeBtn() {
-        this._handleLikeClick(this._newCardLikeBtn, this._data._id)
-        // this._newCardLikeBtn.classList.toggle('card__like-btn_liked');
+        this._handleLikeClick(this._data._id);
     }
 
     /** Фиксация количества лайков */
     _likeCounter() { 
         this._counter = this._cardElement.querySelector('.card__like-counter')
-        this._data.likes.forEach(like => {
-            if (like._id === this._myId) {
-                this._newCardLikeBtn.classList.add('card__like-btn_liked');
-                return
-            }
-        })
+        if (this._data.likes.some(like => like._id === this._myId)){
+            this._newCardLikeBtn.classList.add('card__like-btn_liked')
+        }
         this._counter.textContent = this._data.likes.length
     }
 
     /** Открытие попапа удаления карточки */
     _handleRemoveBtn() {
-        this._openRemoveCardPopup(this, this._data._id);
+        this._openRemoveCardPopup(this._data._id);
         this._setSubmitButtonState()
     }
 
@@ -81,10 +78,18 @@ export class Card {
         this._cardElement.remove()
     }
 
-    /** Контроль количества лайков */
+    /** Контроль состояния счетчика лайков */
     toggleLikeBtn(likes) {
         this._newCardLikeBtn.classList.toggle('card__like-btn_liked');
-        console.log(likes.length)
         this._counter.textContent = likes.length
+    }
+
+    /** Проверка нажатия на лайк */
+    checkLikeStatus() {
+        if (!this._newCardLikeBtn.classList.contains('card__like-btn_liked')) {
+            return true
+        } else {
+            return false
+        }
     }
 }

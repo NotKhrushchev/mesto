@@ -26,6 +26,11 @@ export class Popup {
         document.removeEventListener('keydown', this._handleEscButton);
     }
 
+    /** Обновление состояния кнопки сабмита */
+    setSubmitBtnState(active) {
+        active === true ? this._submitBtn.textContent = `${this._submitBtn.textContent}...` : this._submitBtn.textContent = this._submitBtn.textContent.replaceAll('.', '')
+    }
+
     /** Слушатель на элементы попапа */
     setEventListeners() {
         this._popup.addEventListener("click", (evt) => {
