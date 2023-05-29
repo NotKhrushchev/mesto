@@ -7,6 +7,7 @@ export class PopupWithForm extends Popup {
         this._submitForm = submitForm;
         this._form = this._popup.querySelector('.form');
         this._submitBtn = this._form.querySelector('.form__save-btn');
+        this._submitBtnTextOriginal = this._submitBtn.textContent
         this._inputList = this._form.querySelectorAll('.form__input');
     }
 
@@ -24,6 +25,11 @@ export class PopupWithForm extends Popup {
         this._inputList.forEach(input => {
             input.value = profileData[input.name];
         });
+    }
+
+    /** Обновление состояния кнопки сабмита */
+    setSubmitBtnState(active) {
+        active === true ? this._submitBtn.textContent = `Сохранение...` : this._submitBtn.textContent = this._submitBtnTextOriginal;
     }
 
     /** Сброс инпутов */

@@ -26,9 +26,6 @@ import { UserInfo } from "../scripts/components/UserInfo.js";
 import { Api } from "../scripts/components/Api";
 import { PopupWithConfirmation } from "../scripts/components/PopupWithConfirmation";
 
-/** Хранилище личного Id*/
-let myId = ''
-
 /** Универсальная форма обращения к серверу */
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-66',
@@ -38,13 +35,8 @@ const api = new Api({
   }
 })
 
-/** Загрузка данных профиля */
-api.getProfileInfo()
-  .then(res => {
-    profileInfo.setUserInfo(res)
-    myId = res._id
-  })
-  .catch(err => console.log(err));
+/** Хранилище личного Id*/
+let myId
 
 /** Создание готовой карточки */
 const createCard = (item) => {
@@ -53,9 +45,6 @@ const createCard = (item) => {
     myId,
     cardTemplateSelector,
     removeCardPopup.open,
-    () => {
-      removeCardPopup.setSubmitBtnState(false)
-    },
     popupImg.open,
     (cardId) => {
       if (card.checkLikeStatus()) {
@@ -93,18 +82,17 @@ setAvatarFormValidation.enableValidation();
 const profileFormPopup = new PopupWithForm(
   popupProfileSelector,
   () => {
+    profileFormPopup.setSubmitBtnState(true)
     api.setProfileInfo(profileFormPopup.getInputValues())
       .then(res => {
         profileInfo.setUserInfo(res)
-        profileFormPopup.setSubmitBtnState(false)
         profileFormPopup.close()
       }
       )
       .catch(err => {
-        setAvatarPopup.setSubmitBtnState(false)
         console.log(err);
       })
-      .finally(profileFormPopup.setSubmitBtnState(true))
+      .finally(() => profileFormPopup.setSubmitBtnState(false))
   }
 );
 profileFormPopup.setEventListeners();
@@ -113,20 +101,19 @@ profileFormPopup.setEventListeners();
 const placeFormPopup = new PopupWithForm(
   popupPlaceSelector, 
   () => {
+    placeFormPopup.setSubmitBtnState(true)
     api.postNewCard(placeFormPopup.getInputValues())
     .then(res => {
       cardList.setItem(
         createCard(res, cardTemplateSelector, popupImg.open)
       )
-      placeFormPopup.setSubmitBtnState(false);
       placeFormPopup.close()
     }
     )
     .catch(err => {
-      setAvatarPopup.setSubmitBtnState(false)
       console.log(err);
     })
-    .finally(placeFormPopup.setSubmitBtnState(true))
+    .finally(() => placeFormPopup.setSubmitBtnState(false))
   }
 );
 placeFormPopup.setEventListeners();
@@ -134,17 +121,17 @@ placeFormPopup.setEventListeners();
 /** Попап удаления карточки */
 const removeCardPopup = new PopupWithConfirmation(
   popupRemoveCardSelector,
-  (cardId) => {
+  (card, cardId) => {
+    removeCardPopup.setSubmitBtnState(true)
     api.removeCard(cardId)
     .then(() => 
       card.removeCard(),
       removeCardPopup.close()
     )
     .catch(err => {
-      setAvatarPopup.setSubmitBtnState(false)
       console.log(err);
     })
-    .finally(removeCardPopup.setSubmitBtnState(true))
+    .finally(() => removeCardPopup.setSubmitBtnState(false))
   }
 )
 removeCardPopup.setEventListeners();
@@ -153,18 +140,17 @@ removeCardPopup.setEventListeners();
 const setAvatarPopup = new PopupWithForm(
   popupSetAvatarSelector,
   () => {
+    setAvatarPopup.setSubmitBtnState(true)
     api.setAvatar(setAvatarPopup.getInputValues().link)
     .then(res => {
       profileInfo.setUserInfo(res)
-      setAvatarPopup.setSubmitBtnState(false)
       setAvatarPopup.close()
     }
     )
     .catch(err => {
-      setAvatarPopup.setSubmitBtnState(false)
       console.log(err);
     })
-    .finally(setAvatarPopup.setSubmitBtnState(true))
+    .finally(() => setAvatarPopup.setSubmitBtnState(false))
   }
 )
 setAvatarPopup.setEventListeners()
@@ -209,14 +195,15 @@ setAvatarBtn.addEventListener('click', () => {
   setAvatarFormValidation.toggleButtonState();
   setAvatarFormValidation.reviewValidity();
   setAvatarPopup.open();
-})
+}) 
 
+/** Получение карточек и данных пользователя */
 Promise.all([api.getProfileInfo(), api.getInitialCards()])
 .then(([info, initialCards]) => {
-  cardList.renderItems(initialCards.reverse())
   profileInfo.setUserInfo(info)
   myId = info._id
+  cardList.renderItems(initialCards.reverse())
 })
 .catch((err)=>{
   console.log(err);
-}) 
+})

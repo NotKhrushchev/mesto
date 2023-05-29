@@ -1,14 +1,12 @@
 /** Карточка */
 
 export class Card {
-    constructor (data, myId, templateSelector, openRemoveCardPopup, setSubmitButtonState, handleCardClick, handleLikeClick) {
+    constructor (data, myId, templateSelector, openRemoveCardPopup, handleCardClick, handleLikeClick) {
         this._data = data;
-        this._cardId = this._data._id
         this._myId = myId;
         this._templateSelector = templateSelector;
         this._openRemoveCardPopup = openRemoveCardPopup;
         this._handleCardClick = handleCardClick;
-        this._setSubmitButtonState = setSubmitButtonState;
         this._handleLikeClick = handleLikeClick;
     }
 
@@ -26,6 +24,7 @@ export class Card {
 
     /** Фиксация количества лайков */
     _likeCounter() { 
+        console.log(this._myId)
         this._counter = this._cardElement.querySelector('.card__like-counter')
         if (this._data.likes.some(like => like._id === this._myId)){
             this._newCardLikeBtn.classList.add('card__like-btn_liked')
@@ -35,8 +34,7 @@ export class Card {
 
     /** Открытие попапа удаления карточки */
     _handleRemoveBtn() {
-        this._openRemoveCardPopup(this._data._id);
-        this._setSubmitButtonState()
+        this._openRemoveCardPopup(this, this._data._id);
     }
 
     /** Слушатели на элементы карточки */
